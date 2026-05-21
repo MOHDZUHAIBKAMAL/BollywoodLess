@@ -27,7 +27,9 @@ function hashString(value: string) {
 }
 
 function getGameSignature(dailyKey: string, tracks: PublishedTrack[]) {
-  return hashString(`${dailyKey}:${tracks.map((track) => track.id).join('|')}`).toString(36);
+  return hashString(
+    `${getStorageVersion()}:${dailyKey}:${tracks.map((track) => track.id).join('|')}`
+  ).toString(36);
 }
 
 function seededSort(key: string, tracks: PublishedTrack[]) {
@@ -36,6 +38,15 @@ function seededSort(key: string, tracks: PublishedTrack[]) {
     const rightHash = hashString(`${key}:${right.id}`);
     return leftHash - rightHash;
   });
+}
+
+function normalizedPlayerSeed(playerSeed = '') {
+  return playerSeed.trim().slice(0, 128);
+}
+
+function getShuffleKey(dailyKey: string, playerSeed = '') {
+  const seed = normalizedPlayerSeed(playerSeed);
+  return seed ? `${dailyKey}:player:${seed}` : dailyKey;
 }
 
 function normalize(value: string) {
@@ -56,6 +67,10 @@ export function getPublishedTracks() {
   return pack.tracks;
 }
 
+export function getStorageVersion() {
+  return process.env.VERCEL_GIT_COMMIT_SHA || `pack:${pack.version}:${pack.published_at}`;
+}
+
 export function getAttemptsPerRound() {
   return pack.attempts_per_round || 5;
 }
@@ -65,20 +80,21 @@ export function toPublicTrack(track: PublishedTrack) {
   return publicTrack;
 }
 
-export function getDailyTracks(key = getDailyKey()) {
-  return seededSort(key, pack.tracks);
+export function getDailyTracks(key = getDailyKey(), playerSeed = '') {
+  return seededSort(getShuffleKey(key, playerSeed), pack.tracks);
 }
 
-export function getGameTrack(key: string, roundNumber: number) {
-  return getDailyTracks(key)[roundNumber - 1] || null;
+export function getGameTrack(key: string, roundNumber: number, playerSeed = '') {
+  return getDailyTracks(key, playerSeed)[roundNumber - 1] || null;
 }
 
-export function getGameSummary(dailyKey = getDailyKey()): DailyGameResponse {
-  const tracks = getDailyTracks(dailyKey);
+export function getGameSummary(dailyKey = getDailyKey(), playerSeed = ''): DailyGameResponse {
+  const tracks = getDailyTracks(dailyKey, playerSeed);
 
   return {
     dailyKey,
     gameSignature: getGameSignature(dailyKey, tracks),
+    storageVersion: getStorageVersion(),
     roundCount: tracks.length,
     targetRoundCount: tracks.length,
     needsTracks: 0,

@@ -16,8 +16,9 @@ function queryString(value, fallback) {
 router.get('/daily', async (req, res, next) => {
   try {
     const dailyKey = queryString(req.query.date, getDailyKey());
-    const rounds = await getDailyTracks(dailyKey);
-    res.json(getGameSummary({ dailyKey, rounds }));
+    const playerSeed = queryString(req.query.seed, '');
+    const rounds = await getDailyTracks(dailyKey, undefined, playerSeed);
+    res.json(getGameSummary({ dailyKey, rounds, playerSeed }));
   } catch (error) {
     next(error);
   }
@@ -26,8 +27,9 @@ router.get('/daily', async (req, res, next) => {
 router.get('/daily/round/:roundNumber/snippet', async (req, res, next) => {
   try {
     const dailyKey = queryString(req.query.key, getDailyKey());
+    const playerSeed = queryString(req.query.seed, '');
     const roundNumber = Number(req.params.roundNumber);
-    const track = await getGameTrack({ key: dailyKey, roundNumber });
+    const track = await getGameTrack({ key: dailyKey, roundNumber, playerSeed });
 
     if (!track) {
       const error = new Error('Round not found');

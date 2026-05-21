@@ -19,8 +19,10 @@ function hashString(value) {
     .reduce((hash, char) => (hash * 31 + char.charCodeAt(0)) >>> 0, 2166136261);
 }
 
-function getGameSignature(dailyKey, rounds) {
-  return hashString(`${dailyKey}:${rounds.map((track) => track.id).join('|')}`).toString(36);
+function getGameSignature(dailyKey, rounds, playerSeed = '') {
+  return hashString(
+    `${dailyKey}:${normalizedPlayerSeed(playerSeed)}:${rounds.map((track) => track.id).join('|')}`
+  ).toString(36);
 }
 
 function seededSort(key, tracks) {
@@ -29,6 +31,15 @@ function seededSort(key, tracks) {
     const rightHash = hashString(`${key}:${right.id}`);
     return leftHash - rightHash;
   });
+}
+
+function normalizedPlayerSeed(playerSeed = '') {
+  return String(playerSeed).trim().slice(0, 128);
+}
+
+function getShuffleKey(dailyKey, playerSeed = '') {
+  const seed = normalizedPlayerSeed(playerSeed);
+  return seed ? `${dailyKey}:player:${seed}` : dailyKey;
 }
 
 async function sourceExists(track) {
@@ -56,15 +67,15 @@ async function getPlayableTracks() {
   return checks.filter((check) => check.exists).map((check) => check.track);
 }
 
-async function getDailyTracks(key = getDailyKey(), limit = dailyRoundCount) {
+async function getDailyTracks(key = getDailyKey(), limit = dailyRoundCount, playerSeed = '') {
   const playable = await getPlayableTracks();
-  const sorted = seededSort(key, playable);
+  const sorted = seededSort(getShuffleKey(key, playerSeed), playable);
 
   return limit > 0 ? sorted.slice(0, limit) : sorted;
 }
 
-async function getGameTrack({ key = getDailyKey(), roundNumber = 1 }) {
-  const tracks = await getDailyTracks(key);
+async function getGameTrack({ key = getDailyKey(), roundNumber = 1, playerSeed = '' }) {
+  const tracks = await getDailyTracks(key, dailyRoundCount, playerSeed);
   return tracks[roundNumber - 1] || null;
 }
 
@@ -149,10 +160,11 @@ function evaluateGuess(answer, guess) {
   return 'wrong';
 }
 
-function getGameSummary({ dailyKey, rounds }) {
+function getGameSummary({ dailyKey, rounds, playerSeed = '' }) {
   return {
     dailyKey,
-    gameSignature: getGameSignature(dailyKey, rounds),
+    gameSignature: getGameSignature(dailyKey, rounds, playerSeed),
+    storageVersion: process.env.VERCEL_GIT_COMMIT_SHA || 'local-api',
     roundCount: rounds.length,
     targetRoundCount: dailyRoundCount > 0 ? dailyRoundCount : rounds.length,
     needsTracks: dailyRoundCount > 0 ? Math.max(dailyRoundCount - rounds.length, 0) : 0,
@@ -161,7 +173,7 @@ function getGameSummary({ dailyKey, rounds }) {
     snippetSeconds: snippetSteps,
     rounds: rounds.map((track, index) => ({
       roundNumber: index + 1,
-      snippetUrl: `/api/game/daily/round/${index + 1}/snippet?key=${encodeURIComponent(dailyKey)}`
+      snippetUrl: `/api/game/daily/round/${index + 1}/snippet?key=${encodeURIComponent(dailyKey)}&seed=${encodeURIComponent(normalizedPlayerSeed(playerSeed))}`
     }))
   };
 }

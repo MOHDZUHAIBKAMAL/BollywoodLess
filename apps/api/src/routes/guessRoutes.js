@@ -27,6 +27,7 @@ const guessTrackSchema = z.object({
 
 const guessSchema = z.object({
   dailyKey: z.string().optional(),
+  playerSeed: z.string().max(128).optional(),
   roundNumber: z.number().int().min(1).max(500).default(1),
   attempt: z.number().int().min(1).max(5),
   trackId: z.string().optional(),
@@ -71,7 +72,8 @@ router.post('/guess', async (req, res, next) => {
     const payload = parsed.data;
     const answer = await getGameTrack({
       key: payload.dailyKey || getDailyKey(),
-      roundNumber: payload.roundNumber
+      roundNumber: payload.roundNumber,
+      playerSeed: payload.playerSeed || ''
     });
 
     if (!answer) {

@@ -11,6 +11,7 @@ export const runtime = 'nodejs';
 
 type GuessPayload = {
   dailyKey?: string;
+  playerSeed?: string;
   roundNumber?: number;
   attempt?: number;
   guess?: TrackResult;
@@ -55,7 +56,7 @@ export async function POST(request: Request) {
   }
 
   const dailyKey = payload.dailyKey || getDailyKey();
-  const answer = getGameTrack(dailyKey, roundNumber);
+  const answer = getGameTrack(dailyKey, roundNumber, payload.playerSeed || '');
 
   if (!answer) {
     return Response.json({ error: 'Round answer not found.' }, { status: 404 });

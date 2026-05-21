@@ -5,6 +5,7 @@ export const runtime = 'nodejs';
 export function GET(request: Request) {
   const query = new URL(request.url).searchParams;
   const dailyKey = query.get('date') || getDailyKey();
+  const playerSeed = query.get('seed') || '';
 
-  return Response.json(getGameSummary(dailyKey));
+  return Response.json(getGameSummary(dailyKey, playerSeed));
 }

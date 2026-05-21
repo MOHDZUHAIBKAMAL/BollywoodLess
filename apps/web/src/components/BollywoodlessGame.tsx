@@ -24,6 +24,9 @@ import {
 
 const DEFAULT_STEPS = [1, 2, 4, 8, 15];
 const SCORE_BY_ATTEMPT = [5, 4, 3, 2, 1];
+const PLAYER_SEED_STORAGE_KEY = 'bollywoodless:player-seed';
+const PROGRESS_STORAGE_PREFIX = 'bollywoodless:progress:';
+const STORAGE_VERSION_KEY = 'bollywoodless:storage-version';
 
 type RoundState = 'playing' | 'revealed' | 'complete';
 
@@ -93,7 +96,54 @@ function getSpotifyEmbedUrl(track: TrackResult) {
 }
 
 function progressStorageKey(game: DailyGameResponse) {
-  return `bollywoodless:progress:${game.dailyKey}:${game.gameSignature}`;
+  return `${PROGRESS_STORAGE_PREFIX}${game.storageVersion}:${game.dailyKey}:${game.gameSignature}`;
+}
+
+function createPlayerSeed() {
+  if (window.crypto.randomUUID) {
+    return window.crypto.randomUUID();
+  }
+
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+}
+
+function getOrCreatePlayerSeed() {
+  try {
+    const savedSeed = window.localStorage.getItem(PLAYER_SEED_STORAGE_KEY);
+
+    if (savedSeed) {
+      return savedSeed;
+    }
+
+    const seed = createPlayerSeed();
+    window.localStorage.setItem(PLAYER_SEED_STORAGE_KEY, seed);
+    return seed;
+  } catch {
+    return createPlayerSeed();
+  }
+}
+
+function refreshProgressStorage(storageVersion: string) {
+  try {
+    if (window.localStorage.getItem(STORAGE_VERSION_KEY) === storageVersion) {
+      return;
+    }
+
+    const staleProgressKeys: string[] = [];
+
+    for (let index = 0; index < window.localStorage.length; index += 1) {
+      const key = window.localStorage.key(index);
+
+      if (key?.startsWith(PROGRESS_STORAGE_PREFIX)) {
+        staleProgressKeys.push(key);
+      }
+    }
+
+    staleProgressKeys.forEach((key) => window.localStorage.removeItem(key));
+    window.localStorage.setItem(STORAGE_VERSION_KEY, storageVersion);
+  } catch {
+    // Browsers can block storage. Gameplay still works for the current tab.
+  }
 }
 
 function readPersistedProgress(game: DailyGameResponse) {
@@ -188,6 +238,7 @@ function Modal({
 
 export function BollywoodlessGame() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const playerSeedRef = useRef('');
   const [game, setGame] = useState<DailyGameResponse | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
   const [currentAttempt, setCurrentAttempt] = useState(1);
@@ -242,8 +293,12 @@ export function BollywoodlessGame() {
   );
 
   useEffect(() => {
-    fetchDailyGame()
+    const playerSeed = getOrCreatePlayerSeed();
+    playerSeedRef.current = playerSeed;
+
+    fetchDailyGame(playerSeed)
       .then((payload) => {
+        refreshProgressStorage(payload.storageVersion);
         const saved = readPersistedProgress(payload);
         setGame(payload);
 
@@ -434,6 +489,7 @@ export function BollywoodlessGame() {
     try {
       const response = await submitGuess({
         dailyKey: game.dailyKey,
+        playerSeed: playerSeedRef.current,
         roundNumber: currentRound.roundNumber,
         attempt: currentAttempt,
         skipped: true
@@ -477,6 +533,7 @@ export function BollywoodlessGame() {
     try {
       const response = await submitGuess({
         dailyKey: game.dailyKey,
+        playerSeed: playerSeedRef.current,
         roundNumber: currentRound.roundNumber,
         attempt: currentAttempt,
         guess: track

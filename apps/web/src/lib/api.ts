@@ -25,6 +25,7 @@ export type GameRound = {
 export type DailyGameResponse = {
   dailyKey: string;
   gameSignature: string;
+  storageVersion: string;
   roundCount: number;
   targetRoundCount: number;
   needsTracks: number;
@@ -67,8 +68,15 @@ async function getResponseError(response: Response, fallback: string) {
   return `${fallback}: ${response.status}`;
 }
 
-export async function fetchDailyGame() {
-  const response = await fetch(apiUrl('/api/game/daily'), {
+export async function fetchDailyGame(playerSeed?: string) {
+  const params = new URLSearchParams();
+
+  if (playerSeed) {
+    params.set('seed', playerSeed);
+  }
+
+  const query = params.size ? `?${params.toString()}` : '';
+  const response = await fetch(apiUrl(`/api/game/daily${query}`), {
     cache: 'no-store'
   });
 
@@ -199,6 +207,7 @@ export async function deleteAdminTrack(trackId: string, authToken: string) {
 
 export async function submitGuess(payload: {
   dailyKey: string;
+  playerSeed?: string;
   roundNumber: number;
   attempt: number;
   guess?: TrackResult;
