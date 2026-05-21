@@ -1,0 +1,391 @@
+{
+  "version": 1,
+  "published_at": "2026-05-21T04:20:35.749Z",
+  "snippet_duration_seconds": 15,
+  "attempts_per_round": 5,
+  "tracks": [
+    {
+      "id": "57f35235-156a-4b00-aa64-b4362504ec13",
+      "song_title": "BETWEEN FLOWERS",
+      "movie_album": "Between Flowers",
+      "artists": [
+        "OAFF",
+        "Amira Gill",
+        "Manreet Khara"
+      ],
+      "label": "BETWEEN FLOWERS - Between Flowers",
+      "provider": "spotify",
+      "provider_track_id": "1XjapKb8GMXCoO2WuWlX8x",
+      "artist_ids": [
+        "2k66ibJfgMigF5QWqUgLyR",
+        "3ZW8Uj45dj58KkgqkFBLIS",
+        "5IbqlFtFzlcqZW0KlnyVkq"
+      ],
+      "isrc": "INUM72500075",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27322c6b6a866c045cde825206c",
+      "provider_url": "https://open.spotify.com/track/1XjapKb8GMXCoO2WuWlX8x",
+      "release_year": "2025",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/57f35235-156a-4b00-aa64-b4362504ec13-0-15.mp3"
+    },
+    {
+      "id": "0ca9666f-c1ba-460f-8a3f-2bc7941c2224",
+      "song_title": "Ajeeb-O-Gareeb - From \"Azaad\"",
+      "movie_album": "Azaad (Original Motion Picture Soundtrack)",
+      "artists": [
+        "Arijit Singh",
+        "Amit Trivedi",
+        "Hansika Pareek",
+        "Amitabh Bhattacharya"
+      ],
+      "label": "Ajeeb-O-Gareeb - From \"Azaad\" - Azaad (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "5iraRSCIEJLM3K51bqRjMg",
+      "artist_ids": [
+        "4YRxDV8wJFPHPTeXepOstw",
+        "7HCqGPJcQTyGJ2yqntbuyr",
+        "0RVfcqug2nB820dxIGycIW",
+        "2fMqTqiTxUDlmcOEPaQSsx"
+      ],
+      "isrc": "INZ031417864",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273175cb024a4fac102c6030af6",
+      "provider_url": "https://open.spotify.com/track/5iraRSCIEJLM3K51bqRjMg",
+      "release_year": "2025",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/0ca9666f-c1ba-460f-8a3f-2bc7941c2224-0-15.mp3"
+    },
+    {
+      "id": "160f786b-5335-4fb6-8b7d-506483e80383",
+      "song_title": "Ala Barfi",
+      "movie_album": "Barfi! (Original Motion Picture Soundtrack)",
+      "artists": [
+        "Pritam",
+        "Mohit Chauhan"
+      ],
+      "label": "Ala Barfi - Barfi! (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "6yipH0hUeAf4YPK40k1oIY",
+      "artist_ids": [
+        "1wRPtKGflJrBx9BmLsSwlU",
+        "5GnnSrwNCGyfAU4zuIytiS"
+      ],
+      "isrc": "INU151200075",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273352f44aed6f226c6ea28b961",
+      "provider_url": "https://open.spotify.com/track/6yipH0hUeAf4YPK40k1oIY",
+      "release_year": "2012",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/160f786b-5335-4fb6-8b7d-506483e80383-0-15.mp3"
+    },
+    {
+      "id": "7e45cb97-50c2-4742-b0f5-792e8310616d",
+      "song_title": "Dhurandhar - Title Track (From \"Dhurandhar\")",
+      "movie_album": "Dhurandhar - Title Track (From \"Dhurandhar\")",
+      "artists": [
+        "Shashwat Sachdev",
+        "Hanumankind",
+        "Jasmine Sandlas",
+        "Sudhir Yaduvanshi",
+        "Charanjit Ahuja",
+        "Muhammad Sadiq",
+        "Ranjit Kaur",
+        "Babu Singh Maan"
+      ],
+      "label": "Dhurandhar - Title Track (From \"Dhurandhar\") - Dhurandhar - Title Track (From \"Dhurandhar\")",
+      "provider": "spotify",
+      "provider_track_id": "3QspmlfK7myCWJWWl2bywt",
+      "artist_ids": [
+        "465OXuCU8YZNmVG1leLwQ9",
+        "4nVa6XlBFlIkF6msW57PHp",
+        "0mJDQBWytBhOh5JB1DOQ1c",
+        "586UieDtNlK2F8hEMayYbb",
+        "5jI1jiicLnii7yjSbAj9xj",
+        "0Wrp7P9HV2JVEKAzU3tLSD",
+        "2RB4eCNO29DoHWqjLtPAFY",
+        "0CrZKzYlBaQEXqXGNduM4d"
+      ],
+      "isrc": "INH102506206",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273a501eb791db6baaa2c4deab8",
+      "provider_url": "https://open.spotify.com/track/3QspmlfK7myCWJWWl2bywt",
+      "release_year": "2025",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/7e45cb97-50c2-4742-b0f5-792e8310616d-0-15.mp3"
+    },
+    {
+      "id": "942152ab-5972-4f50-98a9-ee4e024158c3",
+      "song_title": "Dooron Dooron",
+      "movie_album": "Dooron Dooron",
+      "artists": [
+        "Paresh Pahuja",
+        "Shiv Tandan",
+        "Meghdeep Bose"
+      ],
+      "label": "Dooron Dooron - Dooron Dooron",
+      "provider": "spotify",
+      "provider_track_id": "0q5e5KtUOhYQujmhLP0pKd",
+      "artist_ids": [
+        "0DHOOKfXu4aU7LsWjTdrIN",
+        "74wYoI5DV3XZGJri7l9cOP",
+        "1e3Yx1PLC5EP8lz0OFOHda"
+      ],
+      "isrc": "FR10S2206597",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2739fd839ed5ae2fd87ee8ac923",
+      "provider_url": "https://open.spotify.com/track/0q5e5KtUOhYQujmhLP0pKd",
+      "release_year": "2022",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/942152ab-5972-4f50-98a9-ee4e024158c3-0-15.mp3"
+    },
+    {
+      "id": "2afffd21-76b4-428b-b2c3-833abc3232c7",
+      "song_title": "Ilahi",
+      "movie_album": "Yeh Jawaani Hai Deewani",
+      "artists": [
+        "Pritam",
+        "Arijit Singh",
+        "Amitabh Bhattacharya"
+      ],
+      "label": "Ilahi - Yeh Jawaani Hai Deewani",
+      "provider": "spotify",
+      "provider_track_id": "5cgKosPPj5Cs9a2JQufUc1",
+      "artist_ids": [
+        "1wRPtKGflJrBx9BmLsSwlU",
+        "4YRxDV8wJFPHPTeXepOstw",
+        "2fMqTqiTxUDlmcOEPaQSsx"
+      ],
+      "isrc": "INS181303779",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273707ea5b8023ac77d31756ed4",
+      "provider_url": "https://open.spotify.com/track/5cgKosPPj5Cs9a2JQufUc1",
+      "release_year": "2013",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/2afffd21-76b4-428b-b2c3-833abc3232c7-0-15.mp3"
+    },
+    {
+      "id": "ff61cec1-f047-4729-8d41-7a4b96d96b10",
+      "song_title": "Mehram - From \"Jersey\"",
+      "movie_album": "Mehram (From \"Jersey\")",
+      "artists": [
+        "Sachet Tandon",
+        "Shellee"
+      ],
+      "label": "Mehram - From \"Jersey\" - Mehram (From \"Jersey\")",
+      "provider": "spotify",
+      "provider_track_id": "5KN1eiIu0tzSseJ5mHyGwI",
+      "artist_ids": [
+        "6WOdPJmexxFINcKMkP2jMG",
+        "5DJ2ZMr3PC7eTtYAZLOP4n"
+      ],
+      "isrc": "INZ031409989",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273739eb1455bd23b7372f76e74",
+      "provider_url": "https://open.spotify.com/track/5KN1eiIu0tzSseJ5mHyGwI",
+      "release_year": "2021",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/ff61cec1-f047-4729-8d41-7a4b96d96b10-0-15.mp3"
+    },
+    {
+      "id": "c5b22996-6242-4768-8923-907b56ad8e71",
+      "song_title": "Qayde Se (From \"Metro ... In Dino\")",
+      "movie_album": "Qayde Se (From \"Metro ... In Dino\")",
+      "artists": [
+        "Pritam",
+        "Arijit Singh",
+        "Amitabh Bhattacharya"
+      ],
+      "label": "Qayde Se (From \"Metro ... In Dino\") - Qayde Se (From \"Metro ... In Dino\")",
+      "provider": "spotify",
+      "provider_track_id": "1iiVX4OJ6vo3a4sT3Fe7Ix",
+      "artist_ids": [
+        "1wRPtKGflJrBx9BmLsSwlU",
+        "4YRxDV8wJFPHPTeXepOstw",
+        "2fMqTqiTxUDlmcOEPaQSsx"
+      ],
+      "isrc": "INS182502630",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273127b091422dfbcc367062145",
+      "provider_url": "https://open.spotify.com/track/1iiVX4OJ6vo3a4sT3Fe7Ix",
+      "release_year": "2025",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/c5b22996-6242-4768-8923-907b56ad8e71-0-15.mp3"
+    },
+    {
+      "id": "acde6864-070b-4a2b-b937-37f6f5a62877",
+      "song_title": "Mera Yaar",
+      "movie_album": "Bhaag Milkha Bhaag (Original Motion Picture Soundtrack)",
+      "artists": [
+        "Shankar-Ehsaan-Loy",
+        "Javed Bashir"
+      ],
+      "label": "Mera Yaar - Bhaag Milkha Bhaag (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "2NECp5Tvb5Lm6TbJf0Y8xI",
+      "artist_ids": [
+        "0L5GV6LN8SWWUWIdBbTLTZ",
+        "5diMmmNkRVfgUnXJrzXzjZ"
+      ],
+      "isrc": "INS171300369",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273b414911b2d52d2601220603a",
+      "provider_url": "https://open.spotify.com/track/2NECp5Tvb5Lm6TbJf0Y8xI",
+      "release_year": "2013",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/acde6864-070b-4a2b-b937-37f6f5a62877-0-15.mp3"
+    },
+    {
+      "id": "afb090f5-93f3-4122-8cc2-ab118f37c7f4",
+      "song_title": "Rehna Kol - From \"Loveyapa\"",
+      "movie_album": "Rehna Kol (From \"Loveyapa\")",
+      "artists": [
+        "Tanishk Bagchi",
+        "Jubin Nautiyal",
+        "Zahrah S Khan",
+        "Mellow D",
+        "Gurpreet Saini"
+      ],
+      "label": "Rehna Kol - From \"Loveyapa\" - Rehna Kol (From \"Loveyapa\")",
+      "provider": "spotify",
+      "provider_track_id": "0TQGhzD9olq7uDkoxn9AuA",
+      "artist_ids": [
+        "4f7KfxeHq9BiylGmyXepGt",
+        "1tqysapcCh1lWEAc9dIFpa",
+        "7C5xVXoqim1TICnCMZ9A6P",
+        "7tH8oZj2nLERlp2hE5QNjp",
+        "3nLLr3ShsQC2Hdrwjl14ie"
+      ],
+      "isrc": "INZ031417835",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2730780fbd3cf0ac363cc5279db",
+      "provider_url": "https://open.spotify.com/track/0TQGhzD9olq7uDkoxn9AuA",
+      "release_year": "2025",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/afb090f5-93f3-4122-8cc2-ab118f37c7f4-0-15.mp3"
+    },
+    {
+      "id": "67a1557d-5076-420d-be59-8d3285d6f7c6",
+      "song_title": "Sunday",
+      "movie_album": "Sunday",
+      "artists": [
+        "Aditya A",
+        "NAALAYAK"
+      ],
+      "label": "Sunday - Sunday",
+      "provider": "spotify",
+      "provider_track_id": "1GMFeGQBppaepcx6NsR7qB",
+      "artist_ids": [
+        "4wwYGgSpeBtvk5WX6HBqzw",
+        "6BWd8VpOoODhMOPks4sI6R"
+      ],
+      "isrc": "INS172316529",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273ec163f681beef9a3d465cf9a",
+      "provider_url": "https://open.spotify.com/track/1GMFeGQBppaepcx6NsR7qB",
+      "release_year": "2023",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/67a1557d-5076-420d-be59-8d3285d6f7c6-0-15.mp3"
+    },
+    {
+      "id": "7bebffac-fcc6-4612-a6de-bf104fd699fd",
+      "song_title": "They Call Him KING - King Theme (From \"King\")",
+      "movie_album": "They Call Him KING - King Theme (From \"King\")",
+      "artists": [
+        "Anirudh Ravichander",
+        "Heisenberg"
+      ],
+      "label": "They Call Him KING - King Theme (From \"King\") - They Call Him KING - King Theme (From \"King\")",
+      "provider": "spotify",
+      "provider_track_id": "7KKXCjrcxlLf69F3p9theL",
+      "artist_ids": [
+        "4zCH9qm4R2DADamUHMCa6O",
+        "3bsrlEbnX8sWwXlTe80RSr"
+      ],
+      "isrc": "QMFMG2506918",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27374d70a0da192e472c830c7bb",
+      "provider_url": "https://open.spotify.com/track/7KKXCjrcxlLf69F3p9theL",
+      "release_year": "2025",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/7bebffac-fcc6-4612-a6de-bf104fd699fd-0-15.mp3"
+    },
+    {
+      "id": "d11eeded-5e80-42f6-9fb2-7ac28406ff3c",
+      "song_title": "Tum Tak (From \"Raanjhanaa\")",
+      "movie_album": "Raanjhanaa (Original Motion Picture Soundtrack)",
+      "artists": [
+        "A.R. Rahman",
+        "Javed Ali",
+        "KIRTI SAGATHIA",
+        "Pooja AV"
+      ],
+      "label": "Tum Tak (From \"Raanjhanaa\") - Raanjhanaa (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "1wnozUBSe7OMpmZiTPJC5j",
+      "artist_ids": [
+        "1mYsTxnqsietFxj1OgoGbG",
+        "4W91bbPB2CTSsHwt7eqNl7",
+        "42lH1BZdeeLF5LW02tpKgB",
+        "1Ju3SIITQWtyT3SOnONE40"
+      ],
+      "isrc": "INS171300335",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2730c556f210b927ca230f32241",
+      "provider_url": "https://open.spotify.com/track/1wnozUBSe7OMpmZiTPJC5j",
+      "release_year": "2013",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/d11eeded-5e80-42f6-9fb2-7ac28406ff3c-0-15.mp3"
+    },
+    {
+      "id": "03c15aa4-bcd2-47f9-ab0b-d253ebde2e62",
+      "song_title": "Tere Bina",
+      "movie_album": "1921 (Original Motion Picture Soundtrack)",
+      "artists": [
+        "Arijit Singh",
+        "Aakanksha Sharma",
+        "Asad Khan"
+      ],
+      "label": "Tere Bina - 1921 (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "1AejLhx259Cv7TXPZek9wR",
+      "artist_ids": [
+        "4YRxDV8wJFPHPTeXepOstw",
+        "4OFVqZNj0INA51VvzK3Lgw",
+        "39AzrdG8LxPfPzS6DtFD8Q"
+      ],
+      "isrc": "INZ031403113",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2734fa15514cc7d7cef450f76bc",
+      "provider_url": "https://open.spotify.com/track/1AejLhx259Cv7TXPZek9wR",
+      "release_year": "2017",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/03c15aa4-bcd2-47f9-ab0b-d253ebde2e62-0-15.mp3"
+    },
+    {
+      "id": "b66728aa-3f29-444a-8f14-f0ec915a6fcd",
+      "song_title": "Kyon",
+      "movie_album": "Barfi! (Original Motion Picture Soundtrack)",
+      "artists": [
+        "Pritam",
+        "Papon",
+        "Sunidhi Chauhan"
+      ],
+      "label": "Kyon - Barfi! (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "1sYC1fG7s4p0pTykrJqmgW",
+      "artist_ids": [
+        "1wRPtKGflJrBx9BmLsSwlU",
+        "2FPwX3Gh0w4Qr1v3zSTtcT",
+        "3eDT9fwXKuHWFvgZaaYC5v"
+      ],
+      "isrc": "INU151200113",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273352f44aed6f226c6ea28b961",
+      "provider_url": "https://open.spotify.com/track/1sYC1fG7s4p0pTykrJqmgW",
+      "release_year": "2012",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/b66728aa-3f29-444a-8f14-f0ec915a6fcd-0-15.mp3"
+    }
+  ]
+}
