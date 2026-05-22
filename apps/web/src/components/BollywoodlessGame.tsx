@@ -251,6 +251,7 @@ export function BollywoodlessGame() {
   const [selectedTrack, setSelectedTrack] = useState<TrackResult | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackTime, setPlaybackTime] = useState(0);
   const [error, setError] = useState('');
   const [showHelp, setShowHelp] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -266,11 +267,11 @@ export function BollywoodlessGame() {
   const unlockedTime =
     roundState === 'revealed' ? maxSnippetSeconds : steps[currentAttempt - 1] || maxSnippetSeconds;
   const markerPercent = Math.min((unlockedTime / maxSnippetSeconds) * 100, 100);
+  const playbackPercent = Math.min((playbackTime / maxSnippetSeconds) * 100, markerPercent);
+  const progressFillPercent = isPlaying ? playbackPercent : markerPercent;
   const currentRoundNumber = currentRound?.roundNumber || 1;
   const currentHistory = roundHistory[currentRoundNumber] || [];
   const revealedAnswer = roundAnswers[currentRoundNumber] || null;
-  const activeSegments =
-    roundState === 'revealed' || roundState === 'complete' ? steps.length : currentAttempt;
   const snippetUrl = currentRound ? apiUrl(currentRound.snippetUrl) : undefined;
   const spotifyEmbedUrl = revealedAnswer ? getSpotifyEmbedUrl(revealedAnswer) : '';
   const score = useMemo(
@@ -403,22 +404,50 @@ export function BollywoodlessGame() {
       return;
     }
 
-    const enforceLimit = () => {
+    let progressFrame = 0;
+
+    const syncPlayback = () => {
+      setPlaybackTime(Math.min(audio.currentTime, unlockedTime));
+
       if (audio.currentTime >= unlockedTime - 0.015) {
         audio.pause();
         audio.currentTime = 0;
         setIsPlaying(false);
+        setPlaybackTime(0);
+        return false;
       }
+
+      return true;
     };
 
-    const stopPlayback = () => setIsPlaying(false);
+    const animatePlayback = () => {
+      if (!syncPlayback() || audio.paused || audio.ended) {
+        return;
+      }
 
-    audio.addEventListener('timeupdate', enforceLimit);
+      progressFrame = window.requestAnimationFrame(animatePlayback);
+    };
+
+    const startPlaybackAnimation = () => {
+      window.cancelAnimationFrame(progressFrame);
+      progressFrame = window.requestAnimationFrame(animatePlayback);
+    };
+
+    const stopPlayback = () => {
+      window.cancelAnimationFrame(progressFrame);
+      setIsPlaying(false);
+      setPlaybackTime(audio.currentTime || 0);
+    };
+
+    audio.addEventListener('play', startPlaybackAnimation);
+    audio.addEventListener('timeupdate', syncPlayback);
     audio.addEventListener('ended', stopPlayback);
     audio.addEventListener('pause', stopPlayback);
 
     return () => {
-      audio.removeEventListener('timeupdate', enforceLimit);
+      window.cancelAnimationFrame(progressFrame);
+      audio.removeEventListener('play', startPlaybackAnimation);
+      audio.removeEventListener('timeupdate', syncPlayback);
       audio.removeEventListener('ended', stopPlayback);
       audio.removeEventListener('pause', stopPlayback);
     };
@@ -431,6 +460,7 @@ export function BollywoodlessGame() {
     audio.pause();
     audio.currentTime = 0;
     setIsPlaying(false);
+    setPlaybackTime(0);
   }
 
   function appendHistory(roundNumber: number, item: GuessHistoryItem) {
@@ -464,6 +494,7 @@ export function BollywoodlessGame() {
     setError('');
     audio.pause();
     audio.currentTime = 0;
+    setPlaybackTime(0);
 
     try {
       await audio.play();
@@ -812,7 +843,7 @@ export function BollywoodlessGame() {
             <div className="mx-auto w-full max-w-5xl">
               <div className="relative mb-4 pt-6">
                 <div
-                  className="absolute top-0 -translate-x-1/2 text-center"
+                  className="absolute top-0 z-10 -translate-x-1/2 text-center"
                   style={{ left: `${markerPercent}%` }}
                 >
                   <p className="whitespace-nowrap text-xs font-black text-zinc-100 sm:text-sm">
@@ -821,16 +852,20 @@ export function BollywoodlessGame() {
                   <div className="mx-auto mt-1 h-0 w-0 border-x-[8px] border-t-[10px] border-x-transparent border-t-zinc-100" />
                 </div>
 
-                <div className="flex h-6 overflow-hidden rounded-md bg-panelLight">
+                <div className="relative h-6 overflow-hidden rounded-md bg-panelLight">
+                  <div
+                    className="absolute inset-y-0 left-0 bg-accent"
+                    style={{ width: `${progressFillPercent}%`, willChange: 'width' }}
+                  />
+                  <div className="absolute inset-0 flex">
                   {segmentWidths.map((width, index) => (
                     <div
                       key={`${steps[index]}-${index}`}
-                      className={`border-r-2 border-canvas last:border-r-0 ${
-                        index < activeSegments ? 'bg-accent' : 'bg-panelLight'
-                      }`}
+                      className="border-r-2 border-canvas last:border-r-0"
                       style={{ flexGrow: width, flexBasis: 0 }}
                     />
                   ))}
+                  </div>
                 </div>
               </div>
 
