@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import {
+  ChevronLeft,
   ChevronRight,
   HelpCircle,
   Menu,
@@ -241,6 +242,7 @@ export function BollywoodlessGame() {
   const playerSeedRef = useRef('');
   const [game, setGame] = useState<DailyGameResponse | null>(null);
   const [roundIndex, setRoundIndex] = useState(0);
+  const [viewedRoundIndex, setViewedRoundIndex] = useState(0);
   const [currentAttempt, setCurrentAttempt] = useState(1);
   const [roundState, setRoundState] = useState<RoundState>('playing');
   const [roundHistory, setRoundHistory] = useState<Record<number, GuessHistoryItem[]>>({});
@@ -260,19 +262,44 @@ export function BollywoodlessGame() {
   const [isProgressReady, setIsProgressReady] = useState(false);
   const hasRestoredProgressRef = useRef(false);
 
-  const currentRound = game?.rounds[roundIndex] || null;
+  const activeRound = game?.rounds[roundIndex] || null;
+  const isViewingResults =
+    Boolean(game?.rounds.length) && roundState === 'complete' && viewedRoundIndex >= (game?.rounds.length || 0);
+  const viewedRound =
+    game && viewedRoundIndex >= 0 && viewedRoundIndex < game.rounds.length
+      ? game.rounds[viewedRoundIndex]
+      : null;
+  const maxViewableRoundIndex =
+    game && game.rounds.length
+      ? roundState === 'complete'
+        ? game.rounds.length
+        : roundIndex
+      : 0;
+  const isViewingActiveRound = viewedRoundIndex === roundIndex && roundState !== 'complete';
   const attemptsPerRound = game?.attemptsPerRound || 5;
   const steps = game?.snippetSeconds?.length ? game.snippetSeconds : DEFAULT_STEPS;
   const maxSnippetSeconds = game?.maxSnippetSeconds || 15;
+  const viewedRoundNumber = viewedRound?.roundNumber || 1;
+  const viewedAnswer = roundAnswers[viewedRoundNumber] || null;
+  const viewedRoundState: RoundState =
+    isViewingResults
+      ? 'complete'
+      : viewedAnswer || (roundState === 'complete' && viewedRoundIndex < (game?.rounds.length || 0))
+      ? 'revealed'
+      : isViewingActiveRound
+        ? roundState
+        : 'playing';
   const unlockedTime =
-    roundState === 'revealed' ? maxSnippetSeconds : steps[currentAttempt - 1] || maxSnippetSeconds;
+    viewedRoundState === 'revealed' || !isViewingActiveRound
+      ? maxSnippetSeconds
+      : steps[currentAttempt - 1] || maxSnippetSeconds;
   const markerPercent = Math.min((unlockedTime / maxSnippetSeconds) * 100, 100);
   const playbackPercent = Math.min((playbackTime / maxSnippetSeconds) * 100, markerPercent);
   const progressFillPercent = isPlaying ? playbackPercent : markerPercent;
-  const currentRoundNumber = currentRound?.roundNumber || 1;
-  const currentHistory = roundHistory[currentRoundNumber] || [];
-  const revealedAnswer = roundAnswers[currentRoundNumber] || null;
-  const snippetUrl = currentRound ? apiUrl(currentRound.snippetUrl) : undefined;
+  const activeRoundNumber = activeRound?.roundNumber || 1;
+  const currentHistory = roundHistory[viewedRoundNumber] || [];
+  const revealedAnswer = viewedAnswer;
+  const snippetUrl = viewedRound ? apiUrl(viewedRound.snippetUrl) : undefined;
   const spotifyEmbedUrl = revealedAnswer ? getSpotifyEmbedUrl(revealedAnswer) : '';
   const score = useMemo(
     () => Object.values(roundScores).reduce((total, points) => total + points, 0),
@@ -304,7 +331,12 @@ export function BollywoodlessGame() {
         setGame(payload);
 
         if (saved && payload.rounds.length) {
-          setRoundIndex(Math.min(Math.max(saved.roundIndex || 0, 0), payload.rounds.length - 1));
+          const restoredRoundIndex = Math.min(
+            Math.max(saved.roundIndex || 0, 0),
+            payload.rounds.length - 1
+          );
+          setRoundIndex(restoredRoundIndex);
+          setViewedRoundIndex(saved.roundState === 'complete' ? payload.rounds.length : restoredRoundIndex);
           setCurrentAttempt(
             Math.min(Math.max(saved.currentAttempt || 1, 1), payload.attemptsPerRound || 5)
           );
@@ -362,7 +394,7 @@ export function BollywoodlessGame() {
   ]);
 
   useEffect(() => {
-    if (query.trim().length < 2 || roundState !== 'playing') {
+    if (query.trim().length < 2 || roundState !== 'playing' || !isViewingActiveRound) {
       setResults([]);
       setIsSearching(false);
       return;
@@ -395,7 +427,7 @@ export function BollywoodlessGame() {
       controller.abort();
       window.clearTimeout(timer);
     };
-  }, [query, roundState, selectedTrack]);
+  }, [isViewingActiveRound, query, roundState, selectedTrack]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -473,9 +505,10 @@ export function BollywoodlessGame() {
   function revealRound(answer: TrackResult) {
     setRoundAnswers((answers) => ({
       ...answers,
-      [currentRoundNumber]: answer
+      [activeRoundNumber]: answer
     }));
     setRoundState('revealed');
+    setViewedRoundIndex(roundIndex);
   }
 
   function cue(type: 'correct' | 'wrong' | 'artist' | 'skip' | 'complete') {
@@ -487,7 +520,7 @@ export function BollywoodlessGame() {
   async function handlePlay() {
     const audio = audioRef.current;
 
-    if (!audio || !currentRound || roundState === 'complete') {
+    if (!audio || !viewedRound || viewedRoundState === 'complete') {
       return;
     }
 
@@ -510,7 +543,7 @@ export function BollywoodlessGame() {
   }
 
   async function handleSkip() {
-    if (!game || !currentRound || roundState !== 'playing') {
+    if (!game || !activeRound || roundState !== 'playing' || !isViewingActiveRound) {
       return;
     }
 
@@ -521,12 +554,12 @@ export function BollywoodlessGame() {
       const response = await submitGuess({
         dailyKey: game.dailyKey,
         playerSeed: playerSeedRef.current,
-        roundNumber: currentRound.roundNumber,
+        roundNumber: activeRound.roundNumber,
         attempt: currentAttempt,
         skipped: true
       });
 
-      appendHistory(currentRound.roundNumber, {
+      appendHistory(activeRound.roundNumber, {
         label: 'Skipped',
         detail: formatSeconds(unlockedTime),
         status: 'skipped'
@@ -547,7 +580,7 @@ export function BollywoodlessGame() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!game || !currentRound || roundState !== 'playing') {
+    if (!game || !activeRound || roundState !== 'playing' || !isViewingActiveRound) {
       return;
     }
 
@@ -565,7 +598,7 @@ export function BollywoodlessGame() {
       const response = await submitGuess({
         dailyKey: game.dailyKey,
         playerSeed: playerSeedRef.current,
-        roundNumber: currentRound.roundNumber,
+        roundNumber: activeRound.roundNumber,
         attempt: currentAttempt,
         guess: track
       });
@@ -574,7 +607,7 @@ export function BollywoodlessGame() {
         response.status === 'correct' ? pointsForAttempt(currentAttempt) : 0;
       const artistDetail = response.guess?.artists.join(', ') || track.artists.join(', ');
 
-      appendHistory(currentRound.roundNumber, {
+      appendHistory(activeRound.roundNumber, {
         label: response.guess?.label || track.label,
         detail: earnedPoints ? `${artistDetail} - +${earnedPoints} pts` : artistDetail,
         status: response.status
@@ -583,7 +616,7 @@ export function BollywoodlessGame() {
       if (response.status === 'correct') {
         setRoundScores((scores) => ({
           ...scores,
-          [currentRound.roundNumber]: earnedPoints
+          [activeRound.roundNumber]: earnedPoints
         }));
         cue('correct');
       } else if (response.status === 'artist') {
@@ -626,12 +659,28 @@ export function BollywoodlessGame() {
 
     if (!game || roundIndex + 1 >= game.rounds.length) {
       setRoundState('complete');
+      setViewedRoundIndex(game?.rounds.length || roundIndex);
       cue('complete');
       return;
     }
 
-    setRoundIndex((index) => index + 1);
+    setRoundIndex((index) => {
+      const nextIndex = index + 1;
+      setViewedRoundIndex(nextIndex);
+      return nextIndex;
+    });
     setRoundState('playing');
+  }
+
+  function viewRound(delta: number) {
+    stopAudio();
+    setError('');
+    setQuery('');
+    setResults([]);
+    setSelectedTrack(null);
+    setViewedRoundIndex((index) =>
+      Math.min(Math.max(index + delta, 0), maxViewableRoundIndex)
+    );
   }
 
   function handleResetProgress() {
@@ -643,6 +692,7 @@ export function BollywoodlessGame() {
     }
 
     setRoundIndex(0);
+    setViewedRoundIndex(0);
     setCurrentAttempt(1);
     setRoundHistory({});
     setRoundAnswers({});
@@ -701,14 +751,44 @@ export function BollywoodlessGame() {
       <section className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-5 pb-4">
         <div className="mx-auto w-full max-w-3xl">
           <div className="mb-3 grid grid-cols-3 gap-3 text-xs font-bold text-zinc-300 md:text-sm">
-            <div className="rounded-md border border-line bg-panel px-3 py-2">
-              Round {game?.rounds.length ? roundIndex + 1 : 0}/{game?.rounds.length || 0}
+            <div className="flex items-center justify-between gap-2 rounded-md border border-line bg-panel px-2 py-1.5">
+              <button
+                type="button"
+                onClick={() => viewRound(-1)}
+                disabled={!game?.rounds.length || viewedRoundIndex <= 0}
+                className="grid h-7 w-7 place-items-center rounded-md text-zinc-300 transition hover:bg-panelLight hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                aria-label="View previous round"
+              >
+                <ChevronLeft size={17} />
+              </button>
+              <span className="min-w-0 text-center">
+                {isViewingResults ? (
+                  'Results'
+                ) : (
+                  <>
+                    Round {game?.rounds.length ? viewedRoundIndex + 1 : 0}/
+                    {game?.rounds.length || 0}
+                  </>
+                )}
+                {viewedRoundIndex !== roundIndex && viewedRoundState !== 'complete' ? (
+                  <span className="ml-1 text-[10px] uppercase text-zinc-500">Review</span>
+                ) : null}
+              </span>
+              <button
+                type="button"
+                onClick={() => viewRound(1)}
+                disabled={!game?.rounds.length || viewedRoundIndex >= maxViewableRoundIndex}
+                className="grid h-7 w-7 place-items-center rounded-md text-zinc-300 transition hover:bg-panelLight hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                aria-label="View next round"
+              >
+                <ChevronRight size={17} />
+              </button>
             </div>
             <div className="rounded-md border border-line bg-panel px-3 py-2 text-center">
               Score {score}/{maxScore}
             </div>
             <div className="rounded-md border border-line bg-panel px-3 py-2 text-right">
-              Try {roundState === 'playing' ? currentAttempt : '-'}
+              Try {isViewingActiveRound && roundState === 'playing' ? currentAttempt : '-'}
             </div>
           </div>
 
@@ -747,7 +827,7 @@ export function BollywoodlessGame() {
             </div>
           ) : null}
 
-          {game && game.rounds.length > 0 && roundState !== 'complete' ? (
+          {game && game.rounds.length > 0 && viewedRoundState !== 'complete' ? (
             <div className="space-y-2">
               {Array.from({ length: attemptsPerRound }).map((_, index) => {
                 const item = currentHistory[index];
@@ -780,7 +860,7 @@ export function BollywoodlessGame() {
             </div>
           ) : null}
 
-          {roundState === 'revealed' && revealedAnswer ? (
+          {viewedRoundState === 'revealed' && revealedAnswer ? (
             <div className="mt-3 rounded-md border border-accent/70 bg-panel p-2">
               <div className="px-2">
                 <p className="text-xs font-black uppercase tracking-normal text-accent">
@@ -808,7 +888,7 @@ export function BollywoodlessGame() {
             </div>
           ) : null}
 
-          {roundState === 'complete' && game?.rounds.length ? (
+          {isViewingResults && game?.rounds.length ? (
             <div className="rounded-lg border border-accent/50 bg-[#1B1E20] px-5 py-6 text-center shadow-glow">
               <p className="text-sm font-black uppercase tracking-normal text-accent">
                 Game complete
@@ -838,7 +918,7 @@ export function BollywoodlessGame() {
           ) : null}
         </div>
 
-        {game && game.rounds.length > 0 && roundState !== 'complete' ? (
+        {game && game.rounds.length > 0 && viewedRoundState !== 'complete' ? (
           <div className="mt-auto pt-4">
             <div className="mx-auto w-full max-w-5xl">
               <div className="relative mb-4 pt-6">
@@ -873,7 +953,7 @@ export function BollywoodlessGame() {
                 <button
                   type="button"
                   onClick={isPlaying ? stopAudio : handlePlay}
-                  disabled={!currentRound}
+                  disabled={!viewedRound}
                   className="grid h-16 w-16 place-items-center rounded-full bg-accent text-white shadow-glow transition hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label={isPlaying ? 'Pause snippet' : 'Play snippet'}
                 >
@@ -884,16 +964,30 @@ export function BollywoodlessGame() {
                   )}
                 </button>
 
-                {roundState === 'revealed' ? (
+                {viewedRoundState === 'revealed' ? (
                   <button
                     type="button"
-                    onClick={handleNextRound}
+                    onClick={
+                      roundState === 'complete'
+                        ? () => viewRound(maxViewableRoundIndex - viewedRoundIndex)
+                        : isViewingActiveRound
+                        ? handleNextRound
+                        : () => viewRound(viewedRoundIndex < maxViewableRoundIndex ? 1 : 0)
+                    }
                     className="inline-flex h-11 items-center gap-2 rounded-md bg-zinc-100 px-4 font-black text-black transition hover:bg-white"
                   >
-                    {roundIndex + 1 >= (game?.rounds.length || 0) ? 'Finish' : 'Next Song'}
+                    {roundState === 'complete'
+                      ? 'Results'
+                      : isViewingActiveRound
+                      ? roundIndex + 1 >= (game?.rounds.length || 0)
+                        ? 'Finish'
+                        : 'Next Song'
+                      : viewedRoundIndex < maxViewableRoundIndex
+                        ? 'Next Round'
+                        : 'Current Round'}
                     <ChevronRight size={18} />
                   </button>
-                ) : (
+                ) : isViewingActiveRound ? (
                   <button
                     type="button"
                     onClick={handleSkip}
@@ -902,10 +996,19 @@ export function BollywoodlessGame() {
                     Skip
                     <ChevronRight size={18} />
                   </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => viewRound(maxViewableRoundIndex - viewedRoundIndex)}
+                    className="inline-flex h-11 items-center gap-2 rounded-md border border-line px-4 font-bold text-zinc-200 transition hover:border-zinc-300 hover:bg-panel"
+                  >
+                    Current Round
+                    <ChevronRight size={18} />
+                  </button>
                 )}
               </div>
 
-              {roundState === 'playing' ? (
+              {roundState === 'playing' && isViewingActiveRound ? (
                 <form
                   onSubmit={handleSubmit}
                   className="relative mx-auto flex w-full max-w-3xl gap-3"
