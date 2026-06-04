@@ -101,20 +101,9 @@ export async function searchTracks(query: string, signal?: AbortSignal) {
   return payload.results;
 }
 
-function adminHeaders(authToken: string) {
-  return {
-    Authorization: `Basic ${authToken}`
-  };
-}
-
-export async function searchAdminCatalog(
-  query: string,
-  authToken: string,
-  signal?: AbortSignal
-) {
+export async function searchAdminCatalog(query: string, signal?: AbortSignal) {
   const params = new URLSearchParams({ q: query });
   const response = await fetch(apiUrl(`/api/admin/catalog/search?${params.toString()}`), {
-    headers: adminHeaders(authToken),
     signal
   });
 
@@ -125,9 +114,8 @@ export async function searchAdminCatalog(
   return response.json() as Promise<SearchResponse>;
 }
 
-export async function fetchAdminTracks(authToken: string) {
+export async function fetchAdminTracks() {
   const response = await fetch(apiUrl('/api/admin/tracks'), {
-    headers: adminHeaders(authToken),
     cache: 'no-store'
   });
 
@@ -138,10 +126,9 @@ export async function fetchAdminTracks(authToken: string) {
   return response.json() as Promise<{ tracks: TrackResult[] }>;
 }
 
-export async function uploadAdminTrack(formData: FormData, authToken: string) {
+export async function uploadAdminTrack(formData: FormData) {
   const response = await fetch(apiUrl('/api/admin/tracks'), {
     method: 'POST',
-    headers: adminHeaders(authToken),
     body: formData
   });
 
@@ -168,13 +155,11 @@ export async function updateAdminTrack(
     artwork_url: string;
     release_year: string;
     difficulty: 'easy' | 'medium' | 'hard';
-  },
-  authToken: string
+  }
 ) {
   const response = await fetch(apiUrl(`/api/admin/tracks/${trackId}`), {
     method: 'PATCH',
     headers: {
-      ...adminHeaders(authToken),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -191,10 +176,9 @@ export async function updateAdminTrack(
   return response.json() as Promise<{ track: TrackResult }>;
 }
 
-export async function deleteAdminTrack(trackId: string, authToken: string) {
+export async function deleteAdminTrack(trackId: string) {
   const response = await fetch(apiUrl(`/api/admin/tracks/${trackId}`), {
-    method: 'DELETE',
-    headers: adminHeaders(authToken)
+    method: 'DELETE'
   });
 
   if (!response.ok) {
@@ -203,6 +187,14 @@ export async function deleteAdminTrack(trackId: string, authToken: string) {
   }
 
   return response.json() as Promise<{ deleted: boolean; track: TrackResult }>;
+}
+
+export function adminTrackPreviewUrl(trackId: string, startSecond: string | number) {
+  const params = new URLSearchParams({
+    start: String(startSecond || 0)
+  });
+
+  return apiUrl(`/api/admin/tracks/${trackId}/preview?${params.toString()}`);
 }
 
 export async function submitGuess(payload: {

@@ -5,7 +5,6 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { isAllowedCorsOrigin, port } = require('./config');
-const { adminAuth } = require('./middleware/adminAuth');
 const adminRoutes = require('./routes/adminRoutes');
 const gameRoutes = require('./routes/gameRoutes');
 const guessRoutes = require('./routes/guessRoutes');
@@ -41,7 +40,7 @@ app.get('/health', (req, res) => {
   res.json({ ok: true });
 });
 
-app.use('/api/admin', adminAuth, adminRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/game', gameRoutes);
 app.use('/api/track', trackRoutes);
 app.use('/api/search', searchRoutes);

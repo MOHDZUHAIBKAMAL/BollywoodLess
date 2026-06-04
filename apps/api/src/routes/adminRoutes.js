@@ -9,10 +9,12 @@ const { searchCatalog } = require('../services/catalogSearchService');
 const {
   addUploadedTrack,
   deleteUploadedTrack,
+  findTrackById,
   getUploadedTracks,
   publicTrack,
   updateUploadedTrack
 } = require('../services/trackRepository');
+const { getSnippetPath } = require('../services/audioSnippetService');
 
 const router = express.Router();
 const fullUploadDir = path.join(uploadRoot, 'full');
@@ -96,6 +98,30 @@ router.get('/tracks', async (req, res, next) => {
     res.json({
       tracks: tracks.map(publicTrack)
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/tracks/:id/preview', async (req, res, next) => {
+  try {
+    const track = await findTrackById(req.params.id);
+
+    if (!track) {
+      const error = new Error('Uploaded track not found');
+      error.statusCode = 404;
+      throw error;
+    }
+
+    const startTime = Math.max(0, Number.parseInt(String(req.query.start || '0'), 10) || 0);
+    const snippetPath = await getSnippetPath({
+      ...track,
+      snippet_start_time: startTime
+    });
+
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Cache-Control', 'no-store');
+    res.sendFile(snippetPath);
   } catch (error) {
     next(error);
   }

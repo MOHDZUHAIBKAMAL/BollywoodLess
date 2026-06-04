@@ -41,6 +41,7 @@ type PersistedGameProgress = {
   gameSignature: string;
   dailyKey: string;
   roundIndex: number;
+  viewedRoundIndex?: number;
   currentAttempt: number;
   roundState: RoundState;
   roundHistory: Record<number, GuessHistoryItem[]>;
@@ -166,6 +167,11 @@ function readPersistedProgress(game: DailyGameResponse) {
   } catch {
     return null;
   }
+}
+
+function clampIndex(value: unknown, min: number, max: number) {
+  const numericValue = typeof value === 'number' && Number.isFinite(value) ? value : min;
+  return Math.min(Math.max(numericValue, min), max);
 }
 
 function playSoundCue(type: 'correct' | 'wrong' | 'artist' | 'skip' | 'complete') {
@@ -331,12 +337,13 @@ export function BollywoodlessGame() {
         setGame(payload);
 
         if (saved && payload.rounds.length) {
-          const restoredRoundIndex = Math.min(
-            Math.max(saved.roundIndex || 0, 0),
-            payload.rounds.length - 1
-          );
+          const restoredRoundIndex = clampIndex(saved.roundIndex, 0, payload.rounds.length - 1);
+          const restoredViewedRoundIndex =
+            saved.roundState === 'complete'
+              ? clampIndex(saved.viewedRoundIndex, 0, payload.rounds.length)
+              : clampIndex(saved.viewedRoundIndex ?? restoredRoundIndex, 0, restoredRoundIndex);
           setRoundIndex(restoredRoundIndex);
-          setViewedRoundIndex(saved.roundState === 'complete' ? payload.rounds.length : restoredRoundIndex);
+          setViewedRoundIndex(restoredViewedRoundIndex);
           setCurrentAttempt(
             Math.min(Math.max(saved.currentAttempt || 1, 1), payload.attemptsPerRound || 5)
           );
@@ -371,6 +378,7 @@ export function BollywoodlessGame() {
       gameSignature: game.gameSignature,
       dailyKey: game.dailyKey,
       roundIndex,
+      viewedRoundIndex,
       currentAttempt,
       roundState,
       roundHistory,
@@ -380,7 +388,11 @@ export function BollywoodlessGame() {
       savedAt: new Date().toISOString()
     };
 
-    window.localStorage.setItem(progressStorageKey(game), JSON.stringify(progress));
+    try {
+      window.localStorage.setItem(progressStorageKey(game), JSON.stringify(progress));
+    } catch {
+      // If storage is unavailable, keep the in-memory game running for this tab.
+    }
   }, [
     currentAttempt,
     game,
@@ -390,7 +402,8 @@ export function BollywoodlessGame() {
     roundScores,
     roundIndex,
     roundState,
-    score
+    score,
+    viewedRoundIndex
   ]);
 
   useEffect(() => {

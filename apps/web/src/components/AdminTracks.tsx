@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, Check, Pencil, Search, Trash2, Upload, X } from 'lucide-react';
+import { ArrowLeft, Check, Pencil, Play, Search, Trash2, Upload, X } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
 import {
+  adminTrackPreviewUrl,
   deleteAdminTrack,
   fetchAdminTracks,
   searchAdminCatalog,
@@ -44,9 +45,6 @@ const emptyForm: FormState = {
 
 export function AdminTracks() {
   const [form, setForm] = useState<FormState>(emptyForm);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [authToken, setAuthToken] = useState('');
   const [editingTrackId, setEditingTrackId] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [query, setQuery] = useState('');
@@ -57,26 +55,18 @@ export function AdminTracks() {
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
 
   useEffect(() => {
-    const savedToken = window.sessionStorage.getItem('bollywoodless-admin-token') || '';
-
-    if (!savedToken) {
-      return;
-    }
-
-    setAuthToken(savedToken);
-    fetchAdminTracks(savedToken)
+    fetchAdminTracks()
       .then((payload) => setTracks(payload.tracks))
       .catch(() => {
-        window.sessionStorage.removeItem('bollywoodless-admin-token');
-        setAuthToken('');
-        setError('Admin session expired. Sign in again.');
+        setError('Unable to load uploaded tracks.');
       });
   }, []);
 
   useEffect(() => {
-    if (!authToken || query.trim().length < 2) {
+    if (query.trim().length < 2) {
       setResults([]);
       return;
     }
@@ -84,7 +74,7 @@ export function AdminTracks() {
     const controller = new AbortController();
     const timer = window.setTimeout(() => {
       setIsSearching(true);
-      searchAdminCatalog(query, authToken, controller.signal)
+      searchAdminCatalog(query, controller.signal)
         .then((payload) => {
           setProviderConfigured(payload.providerConfigured);
           setResults(payload.results);
@@ -105,35 +95,7 @@ export function AdminTracks() {
       controller.abort();
       window.clearTimeout(timer);
     };
-  }, [authToken, query]);
-
-  async function handleLogin(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError('');
-    setMessage('');
-
-    const token = window.btoa(`${username}:${password}`);
-
-    try {
-      const payload = await fetchAdminTracks(token);
-      window.sessionStorage.setItem('bollywoodless-admin-token', token);
-      setAuthToken(token);
-      setTracks(payload.tracks);
-      setPassword('');
-      setMessage('Admin signed in.');
-    } catch {
-      setError('Invalid admin ID or password.');
-    }
-  }
-
-  function handleLogout() {
-    window.sessionStorage.removeItem('bollywoodless-admin-token');
-    setAuthToken('');
-    setUsername('');
-    setPassword('');
-    setTracks([]);
-    setMessage('');
-  }
+  }, [query]);
 
   function chooseTrack(track: TrackResult) {
     setForm({
@@ -184,6 +146,7 @@ export function AdminTracks() {
     setQuery('');
     setResults([]);
     setEditingTrackId('');
+    setPreviewUrl('');
   }
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -207,10 +170,11 @@ export function AdminTracks() {
       setIsUploading(true);
 
       try {
-        const payload = await updateAdminTrack(editingTrackId, form, authToken);
+        const payload = await updateAdminTrack(editingTrackId, form);
         setTracks((current) =>
           current.map((track) => (track.id === editingTrackId ? payload.track : track))
         );
+        setPreviewUrl('');
         resetForm();
         setMessage('Track updated.');
       } catch (updateError) {
@@ -247,7 +211,7 @@ export function AdminTracks() {
     setIsUploading(true);
 
     try {
-      const payload = await uploadAdminTrack(formData, authToken);
+      const payload = await uploadAdminTrack(formData);
       setTracks((current) => [payload.track, ...current]);
       resetForm();
       setMessage('Track uploaded and added to the answer pool.');
@@ -271,7 +235,7 @@ export function AdminTracks() {
     setMessage('');
 
     try {
-      await deleteAdminTrack(track.id, authToken);
+      await deleteAdminTrack(track.id);
       setTracks((current) => current.filter((item) => item.id !== track.id));
 
       if (editingTrackId === track.id) {
@@ -282,6 +246,17 @@ export function AdminTracks() {
     } catch (deleteError) {
       setError(deleteError instanceof Error ? deleteError.message : 'Delete failed.');
     }
+  }
+
+  function previewCurrentStart() {
+    if (!editingTrackId) {
+      setError('Save the track first, then edit it to preview start times.');
+      return;
+    }
+
+    setError('');
+    setMessage('Previewing this 15-second slice. Save changes when it sounds right.');
+    setPreviewUrl(`${adminTrackPreviewUrl(editingTrackId, form.snippet_start_time)}&t=${Date.now()}`);
   }
 
   return (
@@ -295,59 +270,10 @@ export function AdminTracks() {
           Game
         </Link>
         <h1 className="text-2xl font-black md:text-4xl">Bollywoodless Admin</h1>
-        {authToken ? (
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="h-10 rounded-md border border-line px-3 text-sm font-bold text-zinc-200 transition hover:border-zinc-300 hover:bg-panel"
-          >
-            Sign Out
-          </button>
-        ) : (
-          <div className="w-20" />
-        )}
+        <div className="w-20" />
       </header>
 
-      {!authToken ? (
-        <section className="mx-auto mt-12 max-w-sm rounded-lg border border-line bg-[#1B1E20] p-5">
-          <p className="text-xl font-black">Admin Sign In</p>
-          <form onSubmit={handleLogin} className="mt-5 space-y-4">
-            <label className="block">
-              <span className="mb-2 block text-sm font-bold text-zinc-300">ID</span>
-              <input
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                className="h-11 w-full rounded-md border border-line bg-panel px-3 font-semibold"
-                autoComplete="username"
-              />
-            </label>
-            <label className="block">
-              <span className="mb-2 block text-sm font-bold text-zinc-300">Password</span>
-              <input
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                type="password"
-                className="h-11 w-full rounded-md border border-line bg-panel px-3 font-semibold"
-                autoComplete="current-password"
-              />
-            </label>
-            <button
-              type="submit"
-              className="h-11 w-full rounded-md bg-accent font-black text-black"
-            >
-              Sign In
-            </button>
-          </form>
-          {error ? (
-            <p className="mt-4 rounded-md border border-danger/50 bg-danger/10 px-3 py-2 text-sm text-red-100">
-              {error}
-            </p>
-          ) : null}
-        </section>
-      ) : null}
-
-      {authToken ? (
-        <section className="mx-auto mt-8 grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="mx-auto mt-8 grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <form
             onSubmit={handleSubmit}
             className="rounded-lg border border-line bg-[#1B1E20] p-5"
@@ -454,13 +380,29 @@ export function AdminTracks() {
               <span className="mb-2 block text-sm font-bold text-zinc-300">
                 Snippet start second
               </span>
-              <input
-                type="number"
-                min="0"
-                value={form.snippet_start_time}
-                onChange={(event) => updateField('snippet_start_time', event.target.value)}
-                className="h-12 w-full rounded-md border border-line bg-panel px-3 font-semibold"
-              />
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  min="0"
+                  value={form.snippet_start_time}
+                  onChange={(event) => updateField('snippet_start_time', event.target.value)}
+                  className="h-12 min-w-0 flex-1 rounded-md border border-line bg-panel px-3 font-semibold"
+                />
+                <button
+                  type="button"
+                  onClick={previewCurrentStart}
+                  disabled={!editingTrackId}
+                  className="inline-flex h-12 items-center gap-2 rounded-md border border-accent/70 px-4 font-black text-accent transition hover:bg-accent/10 disabled:cursor-not-allowed disabled:border-line disabled:text-zinc-500"
+                  title={
+                    editingTrackId
+                      ? 'Preview this 15-second slice'
+                      : 'Upload the track first, then edit to preview'
+                  }
+                >
+                  <Play size={17} />
+                  Preview
+                </button>
+              </div>
             </label>
 
             <label className="block">
@@ -495,6 +437,15 @@ export function AdminTracks() {
               </p>
             )}
           </div>
+
+          {previewUrl ? (
+            <div className="mt-5 rounded-md border border-line bg-panel p-3">
+              <p className="mb-2 text-sm font-bold text-zinc-300">
+                Preview from {Number(form.snippet_start_time) || 0}s
+              </p>
+              <audio key={previewUrl} src={previewUrl} controls autoPlay className="w-full" />
+            </div>
+          ) : null}
 
           <div className="mt-5 flex flex-wrap gap-3">
             <button
@@ -589,8 +540,7 @@ export function AdminTracks() {
             ))}
           </div>
           </section>
-        </section>
-      ) : null}
+      </section>
     </main>
   );
 }
