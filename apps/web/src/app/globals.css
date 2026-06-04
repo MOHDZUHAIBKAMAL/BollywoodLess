@@ -31,3 +31,23 @@ input:focus-visible {
   outline: 2px solid #55b725;
   outline-offset: 3px;
 }
+
+@keyframes leaderboard-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    box-shadow: 0 0 0 rgba(85, 183, 37, 0);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.015);
+    box-shadow: 0 0 24px rgba(85, 183, 37, 0.28);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 rgba(85, 183, 37, 0);
+  }
+}

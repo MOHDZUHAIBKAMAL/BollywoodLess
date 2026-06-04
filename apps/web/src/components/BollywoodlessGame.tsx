@@ -10,15 +10,20 @@ import {
   Play,
   Search,
   Settings,
+  Trophy,
   X
 } from 'lucide-react';
-import { FormEvent, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { FormEvent, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   apiUrl,
   DailyGameResponse,
+  fetchLeaderboard,
   fetchDailyGame,
   GuessStatus,
+  LeaderboardEntry,
+  LeaderboardScope,
   searchTracks,
+  submitLeaderboardScore,
   submitGuess,
   TrackResult
 } from '@/lib/api';
@@ -26,6 +31,9 @@ import {
 const DEFAULT_STEPS = [1, 2, 4, 8, 15];
 const SCORE_BY_ATTEMPT = [5, 4, 3, 2, 1];
 const PLAYER_SEED_STORAGE_KEY = 'bollywoodless:player-seed';
+const PLAYER_NAME_STORAGE_KEY = 'bollywoodless:leaderboard-name';
+const LEADERBOARD_PERMISSION_STORAGE_KEY = 'bollywoodless:leaderboard-permission';
+const LEADERBOARD_SUBMITTED_PREFIX = 'bollywoodless:leaderboard-submitted:';
 const PROGRESS_STORAGE_PREFIX = 'bollywoodless:progress:';
 const STORAGE_VERSION_KEY = 'bollywoodless:storage-version';
 
@@ -101,6 +109,10 @@ function progressStorageKey(game: DailyGameResponse) {
   return `${PROGRESS_STORAGE_PREFIX}${game.storageVersion}:${game.dailyKey}:${game.gameSignature}`;
 }
 
+function leaderboardSubmittedKey(game: DailyGameResponse) {
+  return `${LEADERBOARD_SUBMITTED_PREFIX}${game.storageVersion}:${game.dailyKey}:${game.gameSignature}`;
+}
+
 function createPlayerSeed() {
   if (window.crypto.randomUUID) {
     return window.crypto.randomUUID();
@@ -166,6 +178,22 @@ function readPersistedProgress(game: DailyGameResponse) {
     return parsed;
   } catch {
     return null;
+  }
+}
+
+function readStorageValue(key: string) {
+  try {
+    return window.localStorage.getItem(key) || '';
+  } catch {
+    return '';
+  }
+}
+
+function writeStorageValue(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Storage can be disabled. Keep the current tab behavior working.
   }
 }
 
@@ -262,10 +290,21 @@ export function BollywoodlessGame() {
   const [playbackTime, setPlaybackTime] = useState(0);
   const [error, setError] = useState('');
   const [showHelp, setShowHelp] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isProgressReady, setIsProgressReady] = useState(false);
+  const [leaderboardScope, setLeaderboardScope] = useState<LeaderboardScope>('daily');
+  const [leaderboardEntries, setLeaderboardEntries] = useState<LeaderboardEntry[]>([]);
+  const [leaderboardConfigured, setLeaderboardConfigured] = useState(true);
+  const [leaderboardError, setLeaderboardError] = useState('');
+  const [leaderboardMessage, setLeaderboardMessage] = useState('');
+  const [latestLeaderboardEntryId, setLatestLeaderboardEntryId] = useState('');
+  const [showLeaderboardPrompt, setShowLeaderboardPrompt] = useState(false);
+  const [playerNameInput, setPlayerNameInput] = useState('');
+  const [isSubmittingLeaderboard, setIsSubmittingLeaderboard] = useState(false);
   const hasRestoredProgressRef = useRef(false);
 
   const activeRound = game?.rounds[roundIndex] || null;
@@ -317,6 +356,57 @@ export function BollywoodlessGame() {
   );
   const maxScore = (game?.rounds.length || 0) * pointsForAttempt(1);
 
+  const submitScoreToLeaderboard = useCallback(
+    async (playerName: string) => {
+      if (!game || isSubmittingLeaderboard) {
+        return;
+      }
+
+      const trimmedName = playerName.replace(/\s+/g, ' ').trim();
+
+      if (!trimmedName) {
+        setLeaderboardError('Enter a name for the leaderboard.');
+        return;
+      }
+
+      setIsSubmittingLeaderboard(true);
+      setLeaderboardError('');
+
+      try {
+        const submitted = await submitLeaderboardScore({
+          playerName: trimmedName,
+          playerSeed: playerSeedRef.current,
+          dailyKey: game.dailyKey,
+          gameSignature: game.gameSignature,
+          score,
+          maxScore,
+          solvedCount,
+          roundCount: game.rounds.length
+        });
+        writeStorageValue(PLAYER_NAME_STORAGE_KEY, trimmedName);
+        writeStorageValue(LEADERBOARD_PERMISSION_STORAGE_KEY, 'accepted');
+        writeStorageValue(leaderboardSubmittedKey(game), '1');
+        setPlayerNameInput(trimmedName);
+        setLatestLeaderboardEntryId(submitted.entry.id);
+        setShowLeaderboardPrompt(false);
+        setShowLeaderboard(true);
+        setLeaderboardMessage(`Score saved as ${trimmedName}.`);
+        const payload = await fetchLeaderboard(leaderboardScope, game.dailyKey);
+        setLeaderboardEntries(payload.entries);
+        setLeaderboardConfigured(payload.configured);
+      } catch (submitError) {
+        setLeaderboardError(
+          submitError instanceof Error
+            ? submitError.message
+            : 'Leaderboard score could not be saved.'
+        );
+      } finally {
+        setIsSubmittingLeaderboard(false);
+      }
+    },
+    [game, isSubmittingLeaderboard, leaderboardScope, maxScore, score, solvedCount]
+  );
+
   const segmentWidths = useMemo(
     () =>
       steps.map((step, index) => {
@@ -329,6 +419,7 @@ export function BollywoodlessGame() {
   useEffect(() => {
     const playerSeed = getOrCreatePlayerSeed();
     playerSeedRef.current = playerSeed;
+    setPlayerNameInput(readStorageValue(PLAYER_NAME_STORAGE_KEY));
 
     fetchDailyGame(playerSeed)
       .then((payload) => {
@@ -368,6 +459,51 @@ export function BollywoodlessGame() {
         setIsProgressReady(true);
       });
   }, []);
+
+  useEffect(() => {
+    if (!game || !showLeaderboard) {
+      return;
+    }
+
+    fetchLeaderboard(leaderboardScope, game.dailyKey)
+      .then((payload) => {
+        setLeaderboardEntries(payload.entries);
+        setLeaderboardConfigured(payload.configured);
+        setLeaderboardError('');
+      })
+      .catch((leaderboardLoadError) => {
+        setLeaderboardEntries([]);
+        setLeaderboardError(
+          leaderboardLoadError instanceof Error
+            ? leaderboardLoadError.message
+            : 'Leaderboard could not be loaded.'
+        );
+      });
+  }, [game, leaderboardScope, showLeaderboard]);
+
+  useEffect(() => {
+    if (!game || !isViewingResults || !isProgressReady) {
+      return;
+    }
+
+    const permission = readStorageValue(LEADERBOARD_PERMISSION_STORAGE_KEY);
+    const savedName = readStorageValue(PLAYER_NAME_STORAGE_KEY);
+    const submittedKey = leaderboardSubmittedKey(game);
+
+    if (readStorageValue(submittedKey)) {
+      return;
+    }
+
+    if (permission === 'accepted' && savedName) {
+      void submitScoreToLeaderboard(savedName);
+      return;
+    }
+
+    if (!permission) {
+      setPlayerNameInput(savedName);
+      setShowLeaderboardPrompt(true);
+    }
+  }, [game, isProgressReady, isViewingResults, submitScoreToLeaderboard]);
 
   useEffect(() => {
     if (!game || !isProgressReady || !hasRestoredProgressRef.current) {
@@ -717,12 +853,39 @@ export function BollywoodlessGame() {
     setShowSettings(false);
   }
 
+  function declineLeaderboard() {
+    writeStorageValue(LEADERBOARD_PERMISSION_STORAGE_KEY, 'declined');
+    setShowLeaderboardPrompt(false);
+    setLeaderboardMessage('');
+  }
+
+  function handleLeaderboardSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void submitScoreToLeaderboard(playerNameInput);
+  }
+
+  function openLeaderboard() {
+    setShowMenu(false);
+    setShowLeaderboard(true);
+  }
+
+  function openHelp() {
+    setShowMenu(false);
+    setShowHelp(true);
+  }
+
+  function openSettings() {
+    setShowMenu(false);
+    setShowSettings(true);
+  }
+
   return (
     <main className="flex h-screen overflow-hidden bg-canvas text-white">
       <div className="flex min-h-0 w-full flex-col">
       <header className="relative flex h-20 shrink-0 items-center justify-center px-5 md:h-24">
         <button
           type="button"
+          onClick={() => setShowMenu(true)}
           className="absolute left-5 grid h-10 w-10 place-items-center rounded-full text-zinc-300 transition hover:bg-panel hover:text-white md:left-8"
           aria-label="Open menu"
         >
@@ -927,6 +1090,14 @@ export function BollywoodlessGame() {
                   Max {maxScore}
                 </div>
               </div>
+              <button
+                type="button"
+                onClick={openLeaderboard}
+                className="mt-5 inline-flex h-11 items-center gap-2 rounded-md border border-accent/70 px-4 font-black text-accent transition hover:bg-accent/10"
+              >
+                <Trophy size={18} />
+                View leaderboard
+              </button>
             </div>
           ) : null}
         </div>
@@ -1097,6 +1268,140 @@ export function BollywoodlessGame() {
         />
       ) : null}
 
+      {showMenu ? (
+        <Modal title="Menu" onClose={() => setShowMenu(false)}>
+          <div className="grid gap-3">
+            <button
+              type="button"
+              onClick={openLeaderboard}
+              className="flex h-12 items-center justify-between rounded-md border border-line bg-panel px-4 font-black text-zinc-100 transition hover:border-accent hover:bg-accent/10 hover:text-accent"
+            >
+              <span className="inline-flex items-center gap-3">
+                <Trophy size={18} />
+                Leaderboard
+              </span>
+              <ChevronRight size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={openHelp}
+              className="flex h-12 items-center justify-between rounded-md border border-line bg-panel px-4 font-black text-zinc-100 transition hover:border-zinc-300 hover:bg-panelLight"
+            >
+              <span className="inline-flex items-center gap-3">
+                <HelpCircle size={18} />
+                How to play
+              </span>
+              <ChevronRight size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={openSettings}
+              className="flex h-12 items-center justify-between rounded-md border border-line bg-panel px-4 font-black text-zinc-100 transition hover:border-zinc-300 hover:bg-panelLight"
+            >
+              <span className="inline-flex items-center gap-3">
+                <Settings size={18} />
+                Settings
+              </span>
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </Modal>
+      ) : null}
+
+      {showLeaderboard ? (
+        <Modal title="Leaderboard" onClose={() => setShowLeaderboard(false)}>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 rounded-md border border-line bg-panel p-1 text-sm font-black">
+              <button
+                type="button"
+                onClick={() => setLeaderboardScope('daily')}
+                className={`rounded px-3 py-2 ${
+                  leaderboardScope === 'daily'
+                    ? 'bg-accent text-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                Today
+              </button>
+              <button
+                type="button"
+                onClick={() => setLeaderboardScope('allTime')}
+                className={`rounded px-3 py-2 ${
+                  leaderboardScope === 'allTime'
+                    ? 'bg-accent text-black'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                All time
+              </button>
+            </div>
+
+            {!leaderboardConfigured ? (
+              <p className="rounded-md border border-warning/50 bg-warning/10 px-3 py-2 text-xs text-yellow-100">
+                Shared leaderboard storage is not configured yet. Only the house score is shown.
+              </p>
+            ) : null}
+
+            {leaderboardMessage ? (
+              <p className="rounded-md border border-accent/50 bg-accent/10 px-3 py-2 text-xs text-green-100">
+                {leaderboardMessage}
+              </p>
+            ) : null}
+
+            {leaderboardError ? (
+              <p className="rounded-md border border-danger/50 bg-danger/10 px-3 py-2 text-xs text-red-100">
+                {leaderboardError}
+              </p>
+            ) : null}
+
+            <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
+              {leaderboardEntries.length === 0 ? (
+                <p className="rounded-md border border-line bg-panel px-3 py-4 text-sm text-zinc-400">
+                  Loading leaderboard...
+                </p>
+              ) : null}
+              {leaderboardEntries.map((entry, index) => {
+                const isLatest = entry.id === latestLeaderboardEntryId;
+
+                return (
+                  <div
+                    key={entry.id}
+                    className={`grid grid-cols-[2rem_1fr_auto] items-center gap-3 rounded-md border px-3 py-2 transition ${
+                      isLatest ? 'animate-[leaderboard-pop_900ms_ease-out]' : ''
+                    } ${
+                      entry.isSeeded
+                        ? 'border-accent/60 bg-accent/10'
+                        : isLatest
+                          ? 'border-accent bg-accent/20'
+                          : 'border-line bg-panel'
+                    }`}
+                  >
+                    <span className="text-sm font-black text-zinc-400">#{index + 1}</span>
+                    <span className="min-w-0">
+                      <span className="block truncate font-black text-white">
+                        {entry.playerName}
+                        {entry.isSeeded ? (
+                          <span className="ml-2 text-xs text-accent">house</span>
+                        ) : null}
+                        {isLatest ? (
+                          <span className="ml-2 text-xs text-accent">you</span>
+                        ) : null}
+                      </span>
+                      <span className="block truncate text-xs text-zinc-400">
+                        Solved {entry.solvedCount}/{entry.roundCount}
+                      </span>
+                    </span>
+                    <span className="font-black text-accent">
+                      {entry.score}/{entry.maxScore}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </Modal>
+      ) : null}
+
       {showHelp ? (
         <Modal title="How to Play" onClose={() => setShowHelp(false)}>
           <div className="space-y-3 text-sm leading-6 text-zinc-300">
@@ -1120,6 +1425,47 @@ export function BollywoodlessGame() {
               </div>
             </div>
           </div>
+        </Modal>
+      ) : null}
+
+      {showLeaderboardPrompt ? (
+        <Modal title="Join leaderboard" onClose={declineLeaderboard}>
+          <form onSubmit={handleLeaderboardSubmit} className="space-y-4">
+            <p className="text-sm leading-6 text-zinc-300">
+              Save your name once and use it for future Bollywoodless leaderboards on this device.
+            </p>
+            <label className="block">
+              <span className="mb-2 block text-sm font-bold text-zinc-300">Name</span>
+              <input
+                value={playerNameInput}
+                onChange={(event) => setPlayerNameInput(event.target.value)}
+                maxLength={28}
+                placeholder="Enter your leaderboard name"
+                className="h-11 w-full rounded-md border border-line bg-panel px-3 font-semibold text-white placeholder:text-zinc-500"
+              />
+            </label>
+            {leaderboardError ? (
+              <p className="rounded-md border border-danger/50 bg-danger/10 px-3 py-2 text-sm text-red-100">
+                {leaderboardError}
+              </p>
+            ) : null}
+            <div className="flex gap-3">
+              <button
+                type="submit"
+                disabled={isSubmittingLeaderboard}
+                className="h-11 flex-1 rounded-md bg-accent px-4 font-black text-black transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmittingLeaderboard ? 'Saving' : 'Save score'}
+              </button>
+              <button
+                type="button"
+                onClick={declineLeaderboard}
+                className="h-11 rounded-md border border-line px-4 font-bold text-zinc-200 transition hover:border-zinc-300 hover:bg-panel"
+              >
+                Not now
+              </button>
+            </div>
+          </form>
         </Modal>
       ) : null}
 

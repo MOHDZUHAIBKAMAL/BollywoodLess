@@ -50,6 +50,25 @@ export type SearchResponse = {
   results: TrackResult[];
 };
 
+export type LeaderboardEntry = {
+  id: string;
+  playerName: string;
+  score: number;
+  maxScore: number;
+  solvedCount: number;
+  roundCount: number;
+  dailyKey: string;
+  submittedAt: string;
+  isSeeded?: boolean;
+};
+
+export type LeaderboardScope = 'daily' | 'allTime';
+
+export type LeaderboardResponse = {
+  configured: boolean;
+  entries: LeaderboardEntry[];
+};
+
 export function apiUrl(path: string) {
   if (/^https?:\/\//i.test(path)) {
     return path;
@@ -195,6 +214,44 @@ export function adminTrackPreviewUrl(trackId: string, startSecond: string | numb
   });
 
   return apiUrl(`/api/admin/tracks/${trackId}/preview?${params.toString()}`);
+}
+
+export async function fetchLeaderboard(scope: LeaderboardScope, dailyKey: string) {
+  const params = new URLSearchParams({ scope, dailyKey });
+  const response = await fetch(apiUrl(`/api/leaderboard?${params.toString()}`), {
+    cache: 'no-store'
+  });
+
+  if (!response.ok) {
+    throw new Error(await getResponseError(response, 'Leaderboard could not be loaded'));
+  }
+
+  return response.json() as Promise<LeaderboardResponse>;
+}
+
+export async function submitLeaderboardScore(payload: {
+  playerName: string;
+  playerSeed: string;
+  dailyKey: string;
+  gameSignature: string;
+  score: number;
+  maxScore: number;
+  solvedCount: number;
+  roundCount: number;
+}) {
+  const response = await fetch(apiUrl('/api/leaderboard'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error(await getResponseError(response, 'Leaderboard score could not be saved'));
+  }
+
+  return response.json() as Promise<{ entry: LeaderboardEntry }>;
 }
 
 export async function submitGuess(payload: {
