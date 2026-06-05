@@ -656,8 +656,14 @@ export function BollywoodlessGame() {
       ...answers,
       [activeRoundNumber]: answer
     }));
-    setRoundState('revealed');
     setViewedRoundIndex(roundIndex);
+
+    if (game && roundIndex + 1 >= game.rounds.length) {
+      setRoundState('complete');
+      return;
+    }
+
+    setRoundState('revealed');
   }
 
   function cue(type: 'correct' | 'wrong' | 'artist' | 'skip' | 'complete') {
