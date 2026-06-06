@@ -1,482 +1,480 @@
 {
   "version": 1,
-  "published_at": "2026-06-05T06:32:05.286Z",
+  "published_at": "2026-06-06T06:50:01.101Z",
   "snippet_duration_seconds": 15,
   "attempts_per_round": 5,
   "tracks": [
     {
-      "id": "63c0f2e5-dfcb-44f0-a87b-dfd5a1b58ae1",
-      "song_title": "Caller Tune",
-      "movie_album": "Humshakals (Original Motion Picture Soundtrack)",
+      "id": "57775f2e-04f5-40eb-85d3-5b541c8e0d53",
+      "song_title": "Awari",
+      "movie_album": "Ek Villain",
       "artists": [
-        "Neeraj Shridhar",
-        "Neeti Mohan"
+        "Adnan Dhool",
+        "Momina Mustehsan",
+        "Rabi Ahmed"
       ],
-      "label": "Caller Tune - Humshakals (Original Motion Picture Soundtrack)",
+      "label": "Awari - Ek Villain",
       "provider": "spotify",
-      "provider_track_id": "5mu3t5NyJP1KajYl87xLlx",
+      "provider_track_id": "7IEww1rwWe1scos6rarOYh",
       "artist_ids": [
-        "3tHD07u1ON4uHxmnT9rwqZ",
-        "3ZxZ03fj3tXBZHZWzvaLSM"
+        "4XTiRlcZr4ACFHAXgV34Sc",
+        "7J2gs5q2wLq6lU4q4wkyuV",
+        "7o7GKafH7LeVDLVzl2kTsn"
       ],
-      "isrc": "INZ031403422",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273a38e1cf97c4289e847199837",
-      "provider_url": "https://open.spotify.com/track/5mu3t5NyJP1KajYl87xLlx",
+      "isrc": "INS181401038",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273a2ef89ae0f8d1848081c1449",
+      "provider_url": "https://open.spotify.com/track/7IEww1rwWe1scos6rarOYh",
       "release_year": "2014",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/63c0f2e5-dfcb-44f0-a87b-dfd5a1b58ae1-0-15.mp3"
+      "snippet_url": "/snippets/57775f2e-04f5-40eb-85d3-5b541c8e0d53-0-15.mp3"
     },
     {
-      "id": "95e9d0ce-aa93-4c79-b3d6-7b00d7513f5e",
-      "song_title": "Dastaan - E - Om Shanti Om",
-      "movie_album": "Om Shanti Om",
+      "id": "9233cf60-caba-4729-85c1-0a4a3983a13f",
+      "song_title": "Badtameez",
+      "movie_album": "Badtameez",
       "artists": [
-        "Shaan",
-        "Vishal-Shekhar",
-        "Javed Akhtar"
+        "Ankit Tiwari",
+        "Manoj Muntashir"
       ],
-      "label": "Dastaan - E - Om Shanti Om - Om Shanti Om",
+      "label": "Badtameez - Badtameez",
       "provider": "spotify",
-      "provider_track_id": "4IPzzBnFrGrlijBWY0JDYB",
+      "provider_track_id": "5AHeEE61icHdlwODJNGhgh",
       "artist_ids": [
-        "5cB4d4jPYjMT326sjihQ4m",
-        "6Mv8GjQa7LKUGCAqa9qqdb",
-        "3UpmjPgIFSGqnxXuiwD014"
+        "0E02VcvA5p1ndkLdqWD5JB",
+        "4cAERazLlAzVGA10ORWaUP"
       ],
-      "isrc": "INS180705754",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273675b3f7dea80153c73581e5e",
-      "provider_url": "https://open.spotify.com/track/4IPzzBnFrGrlijBWY0JDYB",
-      "release_year": "2007",
+      "isrc": "INS181600801",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27312c110343fc976bd426557d0",
+      "provider_url": "https://open.spotify.com/track/5AHeEE61icHdlwODJNGhgh",
+      "release_year": "2016",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/95e9d0ce-aa93-4c79-b3d6-7b00d7513f5e-0-15.mp3"
+      "snippet_url": "/snippets/9233cf60-caba-4729-85c1-0a4a3983a13f-0-15.mp3"
     },
     {
-      "id": "13137ea6-ddae-49c9-a688-aab14c87eccc",
-      "song_title": "Dil Diyan Gallan",
-      "movie_album": "Tiger Zinda Hai",
+      "id": "8498aec2-83eb-493a-aeab-39732a48c6fe",
+      "song_title": "Bang Bang",
+      "movie_album": "Hello (Original Motion Picture Soundtrack)",
       "artists": [
-        "Vishal-Shekhar",
-        "Atif Aslam",
-        "Irshad Kamil"
+        "Wajid Khan"
       ],
-      "label": "Dil Diyan Gallan - Tiger Zinda Hai",
+      "label": "Bang Bang - Hello (Original Motion Picture Soundtrack)",
       "provider": "spotify",
-      "provider_track_id": "5MnAi6ZF7cE8pAz7wYr9Ta",
+      "provider_track_id": "5zEM6CV7MQwWCVTOmq7uKP",
       "artist_ids": [
-        "6Mv8GjQa7LKUGCAqa9qqdb",
-        "2oSONSC9zQ4UonDKnLqksx",
-        "3GdSQUH1BRtl9UrrtuwJlP"
+        "2kjmoa3FIezqk3hnhhRF7b"
       ],
-      "isrc": "INY091700035",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273576521b1bf3ec2fd7fdfcbd5",
-      "provider_url": "https://open.spotify.com/track/5MnAi6ZF7cE8pAz7wYr9Ta",
-      "release_year": "2017",
+      "isrc": "INT100800095",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273103dc5dbda905bf702050035",
+      "provider_url": "https://open.spotify.com/track/5zEM6CV7MQwWCVTOmq7uKP",
+      "release_year": "2008",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/13137ea6-ddae-49c9-a688-aab14c87eccc-0-15.mp3"
+      "snippet_url": "/snippets/8498aec2-83eb-493a-aeab-39732a48c6fe-0-15.mp3"
     },
     {
-      "id": "0973ae7d-e5a9-4197-b81e-920d4709ff5f",
-      "song_title": "Gale Lag Ja - Version 1",
-      "movie_album": "De Dana Dan (Original Motion Picture Soundtrack)",
+      "id": "52775578-d960-4f9b-9ec8-e04ab22890d9",
+      "song_title": "Bismil",
+      "movie_album": "Haider (Original Motion Picture Soundtrack)",
       "artists": [
-        "Javed Ali",
-        "Banjyotsna"
+        "Sukhwinder Singh"
       ],
-      "label": "Gale Lag Ja - Version 1 - De Dana Dan (Original Motion Picture Soundtrack)",
+      "label": "Bismil - Haider (Original Motion Picture Soundtrack)",
       "provider": "spotify",
-      "provider_track_id": "2yBxVCCJkfCuwhA0GR2VwA",
+      "provider_track_id": "7EadaXiYHu40vxlHyE1ib7",
       "artist_ids": [
-        "4W91bbPB2CTSsHwt7eqNl7",
-        "3rsSipsr4Fj3g2a6NpJw8B"
+        "19MVxKZZdPj2X0F8pi0OCT"
       ],
-      "isrc": "INV110900901",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273fdfb5a9874443a0e39febd7d",
-      "provider_url": "https://open.spotify.com/track/2yBxVCCJkfCuwhA0GR2VwA",
+      "isrc": "INU151400119",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2737984f5d4ac03cc04a1a360bc",
+      "provider_url": "https://open.spotify.com/track/7EadaXiYHu40vxlHyE1ib7",
+      "release_year": "2014",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/52775578-d960-4f9b-9ec8-e04ab22890d9-0-15.mp3"
+    },
+    {
+      "id": "7b829161-6c0a-4c2e-aa95-cc9ff7a09c41",
+      "song_title": "Emotional Attyachaar (Rock Version)",
+      "movie_album": "Dev D",
+      "artists": [
+        "Bonnie Chakraborty",
+        "Amit Trivedi"
+      ],
+      "label": "Emotional Attyachaar (Rock Version) - Dev D",
+      "provider": "spotify",
+      "provider_track_id": "789ypzLVZugyrUn57A6CWp",
+      "artist_ids": [
+        "6FYbbAEjKyhebS2mAMdjo2",
+        "7HCqGPJcQTyGJ2yqntbuyr"
+      ],
+      "isrc": "INS180810480",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2733c9ceb08ea5e086d804abc37",
+      "provider_url": "https://open.spotify.com/track/789ypzLVZugyrUn57A6CWp",
       "release_year": "2009",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/0973ae7d-e5a9-4197-b81e-920d4709ff5f-0-15.mp3"
+      "snippet_url": "/snippets/7b829161-6c0a-4c2e-aa95-cc9ff7a09c41-0-15.mp3"
     },
     {
-      "id": "63867b7d-bf7d-4a79-bdd8-2e041a9cf126",
-      "song_title": "Hale Dil",
-      "movie_album": "Murder 2",
+      "id": "c5fe8ceb-4d1a-463b-94ba-4398bbb42189",
+      "song_title": "Hai Dil Ye Mera",
+      "movie_album": "Hate Story 2",
       "artists": [
-        "Harshit Saxena",
+        "Arijit Singh"
+      ],
+      "label": "Hai Dil Ye Mera - Hate Story 2",
+      "provider": "spotify",
+      "provider_track_id": "7iUtPrsHS509HB8bCtSlvX",
+      "artist_ids": [
+        "4YRxDV8wJFPHPTeXepOstw"
+      ],
+      "isrc": "INS181401231",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273467cc511d190809571295e3f",
+      "provider_url": "https://open.spotify.com/track/7iUtPrsHS509HB8bCtSlvX",
+      "release_year": "2014",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/c5fe8ceb-4d1a-463b-94ba-4398bbb42189-0-15.mp3"
+    },
+    {
+      "id": "e5e42932-1132-47cc-8ae7-7938a8aaba55",
+      "song_title": "Jashn-e-Ishqa",
+      "movie_album": "Gunday",
+      "artists": [
+        "Sohail Sen",
+        "Javed Ali",
+        "Shadab Faridi",
+        "Irshad Kamil"
+      ],
+      "label": "Jashn-e-Ishqa - Gunday",
+      "provider": "spotify",
+      "provider_track_id": "4MJBN7CfGnOY5GZ76LGbgd",
+      "artist_ids": [
+        "1bTROl5p3rGTpvKeWnGgrw",
+        "4W91bbPB2CTSsHwt7eqNl7",
+        "6WixbETKEXH0xBf0OB9kRB",
+        "3GdSQUH1BRtl9UrrtuwJlP"
+      ],
+      "isrc": "INY091400001",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273e9c00ca1d7085a7ea56e2337",
+      "provider_url": "https://open.spotify.com/track/4MJBN7CfGnOY5GZ76LGbgd",
+      "release_year": "2013",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/e5e42932-1132-47cc-8ae7-7938a8aaba55-0-15.mp3"
+    },
+    {
+      "id": "5327b9e4-66dd-4419-93ff-8385946e0df2",
+      "song_title": "Katra Katra",
+      "movie_album": "Alone",
+      "artists": [
+        "Ankit Tiwari",
+        "Prakriti Kakar"
+      ],
+      "label": "Katra Katra - Alone",
+      "provider": "spotify",
+      "provider_track_id": "0FMend2Dt9IUVDDtAPnLxO",
+      "artist_ids": [
+        "0E02VcvA5p1ndkLdqWD5JB",
+        "59pq5Vw16UDkR9txoPKv86"
+      ],
+      "isrc": "INS181427550",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2734de0eb90195639855b795f4e",
+      "provider_url": "https://open.spotify.com/track/0FMend2Dt9IUVDDtAPnLxO",
+      "release_year": "2015",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/5327b9e4-66dd-4419-93ff-8385946e0df2-0-15.mp3"
+    },
+    {
+      "id": "94a62052-92f1-4d8e-8eb4-2dd68068d7c6",
+      "song_title": "Kill Dil",
+      "movie_album": "Kill Dil",
+      "artists": [
+        "Shankar-Ehsaan-Loy",
+        "Sonu Nigam",
+        "Shankar Mahadevan",
+        "Gulzar"
+      ],
+      "label": "Kill Dil - Kill Dil",
+      "provider": "spotify",
+      "provider_track_id": "5DqatlowP9JciDW3fgDFaF",
+      "artist_ids": [
+        "0L5GV6LN8SWWUWIdBbTLTZ",
+        "1dVygo6tRFXC8CSWURQJq2",
+        "1SJOL9HJ08YOn92lFcYf8a",
+        "0yRC5n90spXG0d3aiDQ0vB"
+      ],
+      "isrc": "INY091400144",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27383a95850378de67fec5bbf3a",
+      "provider_url": "https://open.spotify.com/track/5DqatlowP9JciDW3fgDFaF",
+      "release_year": "2014",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/94a62052-92f1-4d8e-8eb4-2dd68068d7c6-0-15.mp3"
+    },
+    {
+      "id": "7dca3462-59ad-4bb7-8614-1de1d97ded1d",
+      "song_title": "Kuch To Hai",
+      "movie_album": "Do Lafzon Ki Kahani",
+      "artists": [
+        "Armaan Malik",
+        "Amaal Mallik",
+        "Manoj Muntashir"
+      ],
+      "label": "Kuch To Hai - Do Lafzon Ki Kahani",
+      "provider": "spotify",
+      "provider_track_id": "0uFosRhSqfxPxYhn6TWRpC",
+      "artist_ids": [
+        "4IKVDbCSBTxBeAsMKjAuTs",
+        "76fuWYgIf3TVIopTs3vaJ6",
+        "4cAERazLlAzVGA10ORWaUP"
+      ],
+      "isrc": "INS181600701",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273fa6d96d9f40e29e8ed499c98",
+      "provider_url": "https://open.spotify.com/track/0uFosRhSqfxPxYhn6TWRpC",
+      "release_year": "2016",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/7dca3462-59ad-4bb7-8614-1de1d97ded1d-0-15.mp3"
+    },
+    {
+      "id": "dd834417-e6c3-4384-bd4f-2f6c65263ecf",
+      "song_title": "Mat Aazma Re",
+      "movie_album": "Murder 3 (Original Motion Picture Soundtrack)",
+      "artists": [
+        "Pritam",
+        "KK",
         "Sayeed Quadri"
       ],
-      "label": "Hale Dil - Murder 2",
+      "label": "Mat Aazma Re - Murder 3 (Original Motion Picture Soundtrack)",
       "provider": "spotify",
-      "provider_track_id": "6GQK4G5o60E8YA18DGpAzv",
+      "provider_track_id": "0mh4VutnDyBn1sqcp05MZD",
       "artist_ids": [
-        "4auibajZua9Ld8sPMOmPYc",
+        "1wRPtKGflJrBx9BmLsSwlU",
+        "4fEkbug6kZzzJ8eYX6Kbbp",
         "2pGRniGOJSOvYoK3dGaBb8"
       ],
-      "isrc": "INS181101310",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2732432edc97b465e6db54d356b",
-      "provider_url": "https://open.spotify.com/track/6GQK4G5o60E8YA18DGpAzv",
+      "isrc": "INS171300002",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273947e9127982f21bf5504e1f8",
+      "provider_url": "https://open.spotify.com/track/0mh4VutnDyBn1sqcp05MZD",
+      "release_year": "2013",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/dd834417-e6c3-4384-bd4f-2f6c65263ecf-0-15.mp3"
+    },
+    {
+      "id": "2a474580-daff-4c2d-b566-fb317ad0a3bf",
+      "song_title": "Om Mangalam",
+      "movie_album": "Kambakkht Ishq (Original Motion Picture Soundtrack)",
+      "artists": [
+        "RDB"
+      ],
+      "label": "Om Mangalam - Kambakkht Ishq (Original Motion Picture Soundtrack)",
+      "provider": "spotify",
+      "provider_track_id": "01L9rQOvoB18c1OheiFRuq",
+      "artist_ids": [
+        "17dThZkTlOa35pmzuunKAz"
+      ],
+      "isrc": "GBSGZ0900028",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27364699df17da4eea56a19b318",
+      "provider_url": "https://open.spotify.com/track/01L9rQOvoB18c1OheiFRuq",
+      "release_year": "2009",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/2a474580-daff-4c2d-b566-fb317ad0a3bf-0-15.mp3"
+    },
+    {
+      "id": "92227634-61c4-4588-9d7a-d263874c6629",
+      "song_title": "Ranjha Ranjha",
+      "movie_album": "Raavan",
+      "artists": [
+        "Rekha Bhardwaj",
+        "Javed Ali"
+      ],
+      "label": "Ranjha Ranjha - Raavan",
+      "provider": "spotify",
+      "provider_track_id": "6IFsUWHbinvsqfEQvrP8xR",
+      "artist_ids": [
+        "3cqeO3muWIW5uSmUDNCmyT",
+        "4W91bbPB2CTSsHwt7eqNl7"
+      ],
+      "isrc": "INS181005803",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2734000b28e1e6d38fff476f095",
+      "provider_url": "https://open.spotify.com/track/6IFsUWHbinvsqfEQvrP8xR",
+      "release_year": "2010",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/92227634-61c4-4588-9d7a-d263874c6629-0-15.mp3"
+    },
+    {
+      "id": "983729ca-f936-4dba-845c-93ff3ee29353",
+      "song_title": "Saadda Haq",
+      "movie_album": "Rockstar",
+      "artists": [
+        "Mohit Chauhan"
+      ],
+      "label": "Saadda Haq - Rockstar",
+      "provider": "spotify",
+      "provider_track_id": "7k3jpyYPnVnbO0p7iejWxL",
+      "artist_ids": [
+        "5GnnSrwNCGyfAU4zuIytiS"
+      ],
+      "isrc": "INS181103510",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27354e544672baa16145d67612b",
+      "provider_url": "https://open.spotify.com/track/7k3jpyYPnVnbO0p7iejWxL",
       "release_year": "2011",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/63867b7d-bf7d-4a79-bdd8-2e041a9cf126-0-15.mp3"
+      "snippet_url": "/snippets/983729ca-f936-4dba-845c-93ff3ee29353-0-15.mp3"
     },
     {
-      "id": "bd6662e8-fa58-43df-9a9a-9d336e00268f",
-      "song_title": "Hey Shona",
-      "movie_album": "Ta Ra Rum Pum",
+      "id": "9377463b-8a09-4c17-b29f-d265e7f380fc",
+      "song_title": "Sau Tarah Ke",
+      "movie_album": "Dishoom",
       "artists": [
-        "Vishal-Shekhar",
-        "Shaan",
-        "Sunidhi Chauhan",
-        "Javed Akhtar"
+        "Pritam",
+        "Jonita Gandhi",
+        "Amit Mishra",
+        "Kumaar",
+        "Ashish Pandit"
       ],
-      "label": "Hey Shona - Ta Ra Rum Pum",
+      "label": "Sau Tarah Ke - Dishoom",
       "provider": "spotify",
-      "provider_track_id": "2H9SvhMVXSYPxxkQgzkTKp",
+      "provider_track_id": "54SQet8YMttOgTqDNGcGpe",
       "artist_ids": [
-        "6Mv8GjQa7LKUGCAqa9qqdb",
-        "5cB4d4jPYjMT326sjihQ4m",
-        "3eDT9fwXKuHWFvgZaaYC5v",
-        "3UpmjPgIFSGqnxXuiwD014"
+        "1wRPtKGflJrBx9BmLsSwlU",
+        "00sCATpEvwH48ays7PlQFU",
+        "2LgKrgRJcbJlt14i1LTzDU",
+        "0m3D4grap8VFSzbJMqgNVk",
+        "03veJpSIc7GAx0mPLcskjI"
       ],
-      "isrc": "INY090700010",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273ae7fac16cc9e47edb2cd687c",
-      "provider_url": "https://open.spotify.com/track/2H9SvhMVXSYPxxkQgzkTKp",
-      "release_year": "2007",
+      "isrc": "INS181600966",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273d40f14fbc589329567858fc0",
+      "provider_url": "https://open.spotify.com/track/54SQet8YMttOgTqDNGcGpe",
+      "release_year": "2016",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/bd6662e8-fa58-43df-9a9a-9d336e00268f-0-15.mp3"
+      "snippet_url": "/snippets/9377463b-8a09-4c17-b29f-d265e7f380fc-0-15.mp3"
     },
     {
-      "id": "0dbf8c3a-5df0-4683-ba87-e6e1981d6d6e",
-      "song_title": "Kaise Bataaoon",
-      "movie_album": "3G (Original Motion Picture Soundtrack)",
+      "id": "7ea59095-9e8c-4754-9822-267b6085290a",
+      "song_title": "Shaam Shaandaar",
+      "movie_album": "Shaandaar (Original Motion Picture Soundtrack)",
       "artists": [
-        "Mithoon",
-        "KK",
-        "Sonal Chauhan"
+        "Amit Trivedi"
       ],
-      "label": "Kaise Bataaoon - 3G (Original Motion Picture Soundtrack)",
+      "label": "Shaam Shaandaar - Shaandaar (Original Motion Picture Soundtrack)",
       "provider": "spotify",
-      "provider_track_id": "5qju2zoXqrDWIS6K8lNUA3",
+      "provider_track_id": "0BrEDXo0w5pmEqDd67oERv",
       "artist_ids": [
-        "09UmIX92EUH9hAK4bxvHx6",
-        "4fEkbug6kZzzJ8eYX6Kbbp",
-        "4kVJRjvmHeSqYOaiLaqhSl"
+        "7HCqGPJcQTyGJ2yqntbuyr"
       ],
-      "isrc": "GBSGZ1300078",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27338cca55716f5c68b980cc693",
-      "provider_url": "https://open.spotify.com/track/5qju2zoXqrDWIS6K8lNUA3",
-      "release_year": "2013",
+      "isrc": "INZ031400929",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273ad6a2ff03cd27ae95354c34d",
+      "provider_url": "https://open.spotify.com/track/0BrEDXo0w5pmEqDd67oERv",
+      "release_year": "2015",
       "difficulty": "medium",
-      "snippet_start_time": 18,
-      "snippet_url": "/snippets/0dbf8c3a-5df0-4683-ba87-e6e1981d6d6e-18-15.mp3"
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/7ea59095-9e8c-4754-9822-267b6085290a-0-15.mp3"
     },
     {
-      "id": "d69d4d00-dbd3-4215-9bb5-129d156269f5",
-      "song_title": "Kuchh Khaas",
-      "movie_album": "Fashion",
+      "id": "80cb56ad-52f8-40db-9159-a64a88b0a0e8",
+      "song_title": "Teri Meri Kahaani",
+      "movie_album": "Gabbar Is Back (Original Motion Picture Soundtrack)",
       "artists": [
-        "Mohit Chauhan",
-        "Neha Bhasin"
+        "Palak Muchhal",
+        "Manoj Yadav",
+        "Arijit Singh"
       ],
-      "label": "Kuchh Khaas - Fashion",
+      "label": "Teri Meri Kahaani - Gabbar Is Back (Original Motion Picture Soundtrack)",
       "provider": "spotify",
-      "provider_track_id": "01npLGQTbZBIHVRcXJbLzR",
+      "provider_track_id": "4gALQzXkEYPdAlIGCXwHnJ",
       "artist_ids": [
-        "5GnnSrwNCGyfAU4zuIytiS",
-        "4E5oyNFcB3uXLkLdjYmP9Z"
+        "3yMmYEklQ7gLOZXEFNd3xr",
+        "0qSfAhYhb7KWEuiLuooBaE",
+        "4YRxDV8wJFPHPTeXepOstw"
       ],
-      "isrc": "INS180808434",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2734366a09d83f324e302115c2a",
-      "provider_url": "https://open.spotify.com/track/01npLGQTbZBIHVRcXJbLzR",
+      "isrc": "INZ031400534",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273d582f7f8d2c48c332435114b",
+      "provider_url": "https://open.spotify.com/track/4gALQzXkEYPdAlIGCXwHnJ",
+      "release_year": "2018",
+      "difficulty": "medium",
+      "snippet_start_time": 0,
+      "snippet_url": "/snippets/80cb56ad-52f8-40db-9159-a64a88b0a0e8-0-15.mp3"
+    },
+    {
+      "id": "0d3fb7f4-ab11-4a6a-a624-980c3f61945b",
+      "song_title": "Tujhe Aksa Beach Ghuma Doon",
+      "movie_album": "God Tussi Great Ho",
+      "artists": [
+        "Wajid",
+        "Amrita Kak"
+      ],
+      "label": "Tujhe Aksa Beach Ghuma Doon - God Tussi Great Ho",
+      "provider": "spotify",
+      "provider_track_id": "7cMYs2LIf8YNqegnr0svwh",
+      "artist_ids": [
+        "6f5kUMXGROFtdAtxXZwing",
+        "4BTpn8TkJe0FnqlpTY1ZJ2"
+      ],
+      "isrc": "INS180806129",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27337be0915d1201cfdf47420e9",
+      "provider_url": "https://open.spotify.com/track/7cMYs2LIf8YNqegnr0svwh",
       "release_year": "2008",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/d69d4d00-dbd3-4215-9bb5-129d156269f5-0-15.mp3"
+      "snippet_url": "/snippets/0d3fb7f4-ab11-4a6a-a624-980c3f61945b-0-15.mp3"
     },
     {
-      "id": "9eeab0a0-b92f-4c18-9139-fe6826cf5ecd",
-      "song_title": "Kurbaan Hua",
-      "movie_album": "Kurbaan (Original Motion Picture Soundtrack)",
+      "id": "8623702c-9364-4dae-8464-9c6eb0e74fb2",
+      "song_title": "Wajah Tum Ho",
+      "movie_album": "Hate Story 3",
       "artists": [
-        "Salim–Sulaiman",
-        "Vishal Dadlani"
+        "Armaan Malik",
+        "Baman",
+        "Manoj Muntashir"
       ],
-      "label": "Kurbaan Hua - Kurbaan (Original Motion Picture Soundtrack)",
+      "label": "Wajah Tum Ho - Hate Story 3",
       "provider": "spotify",
-      "provider_track_id": "1PH0yXNGtSZbL2eufpgFJ4",
+      "provider_track_id": "4RzaXbufKNBwaFuzJhGur5",
       "artist_ids": [
-        "6ohaQzKaXrobAL8paLSaxq",
-        "6CXEwIaXYfVJ84biCxqc9k"
+        "4IKVDbCSBTxBeAsMKjAuTs",
+        "3SxQRtKMybt5apuaQ2Cfzm",
+        "4cAERazLlAzVGA10ORWaUP"
       ],
-      "isrc": "INS170900432",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273d976f08a9feba38efcafb5ff",
-      "provider_url": "https://open.spotify.com/track/1PH0yXNGtSZbL2eufpgFJ4",
-      "release_year": "2009",
+      "isrc": "INS181501976",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27371959cec830d7f25df3fc12c",
+      "provider_url": "https://open.spotify.com/track/4RzaXbufKNBwaFuzJhGur5",
+      "release_year": "2015",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/9eeab0a0-b92f-4c18-9139-fe6826cf5ecd-0-15.mp3"
+      "snippet_url": "/snippets/8623702c-9364-4dae-8464-9c6eb0e74fb2-0-15.mp3"
     },
     {
-      "id": "b829acb0-f4da-4ecd-86bf-879959b6442a",
-      "song_title": "Lift Karadey",
-      "movie_album": "Kabhi To Nazar Milao",
+      "id": "939c2d71-e0e0-4206-92a3-afa5d5ebd090",
+      "song_title": "Wo Ladki",
+      "movie_album": "Andhadhun (Original Motion Picture Soundtrack)",
       "artists": [
-        "Adnan Sami"
+        "Amit Trivedi",
+        "Arijit Singh"
       ],
-      "label": "Lift Karadey - Kabhi To Nazar Milao",
+      "label": "Wo Ladki - Andhadhun (Original Motion Picture Soundtrack)",
       "provider": "spotify",
-      "provider_track_id": "5aiWpCD4skiAlXqoUzNipv",
+      "provider_track_id": "21GNvMdRqehDvAb2g3T5rx",
       "artist_ids": [
-        "0kJO65h553i1iGsZutBuqz"
+        "7HCqGPJcQTyGJ2yqntbuyr",
+        "4YRxDV8wJFPHPTeXepOstw"
       ],
-      "isrc": "INM120000454",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273dc1f984225f062542ff116eb",
-      "provider_url": "https://open.spotify.com/track/5aiWpCD4skiAlXqoUzNipv",
-      "release_year": "2000",
+      "isrc": "INZ031404137",
+      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273d71d2e2ca2f49bd019476930",
+      "provider_url": "https://open.spotify.com/track/21GNvMdRqehDvAb2g3T5rx",
+      "release_year": "2018",
       "difficulty": "medium",
       "snippet_start_time": 0,
-      "snippet_url": "/snippets/b829acb0-f4da-4ecd-86bf-879959b6442a-0-15.mp3"
-    },
-    {
-      "id": "862ee975-6339-4cdc-9c97-c34f277df084",
-      "song_title": "Mar Jawaan",
-      "movie_album": "Fashion",
-      "artists": [
-        "Shruti Pathak",
-        "Salim Merchant"
-      ],
-      "label": "Mar Jawaan - Fashion",
-      "provider": "spotify",
-      "provider_track_id": "0ErXZ1NMqOEFGJPQvU9OKF",
-      "artist_ids": [
-        "3wZBspj86lRk2XLf4gfnSE",
-        "1TbRSunWGZ46mqnapcWxrm"
-      ],
-      "isrc": "INS180808433",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2734366a09d83f324e302115c2a",
-      "provider_url": "https://open.spotify.com/track/0ErXZ1NMqOEFGJPQvU9OKF",
-      "release_year": "2008",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/862ee975-6339-4cdc-9c97-c34f277df084-0-15.mp3"
-    },
-    {
-      "id": "4e361087-63dc-4382-95cc-f2a583f8a153",
-      "song_title": "O Jaana",
-      "movie_album": "RAAZ - The Mystery Continues (Original Motion Picture Soundtrack)",
-      "artists": [
-        "Raju Singh",
-        "KK",
-        "Sayeed Quadri"
-      ],
-      "label": "O Jaana - RAAZ - The Mystery Continues (Original Motion Picture Soundtrack)",
-      "provider": "spotify",
-      "provider_track_id": "6nDsd9LoKLPHv4VcpCG5Wg",
-      "artist_ids": [
-        "7nok5RndHMd3FHe4ubHX80",
-        "4fEkbug6kZzzJ8eYX6Kbbp",
-        "2pGRniGOJSOvYoK3dGaBb8"
-      ],
-      "isrc": "INS170816457",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273bf8dad28cba0f3680ee29364",
-      "provider_url": "https://open.spotify.com/track/6nDsd9LoKLPHv4VcpCG5Wg",
-      "release_year": "2008",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/4e361087-63dc-4382-95cc-f2a583f8a153-0-15.mp3"
-    },
-    {
-      "id": "38d70a56-b9ca-4bf9-b274-c8017a9dd0f2",
-      "song_title": "Rehja Re",
-      "movie_album": "Golmaal Fun Unlimited",
-      "artists": [
-        "Vishal-Shekhar",
-        "Javed Ali",
-        "Sunidhi Chauhan",
-        "Vishal Dadlani",
-        "Kumaar"
-      ],
-      "label": "Rehja Re - Golmaal Fun Unlimited",
-      "provider": "spotify",
-      "provider_track_id": "0bNRJP5ohcR6CAy6b2u2S9",
-      "artist_ids": [
-        "6Mv8GjQa7LKUGCAqa9qqdb",
-        "4W91bbPB2CTSsHwt7eqNl7",
-        "3eDT9fwXKuHWFvgZaaYC5v",
-        "6CXEwIaXYfVJ84biCxqc9k",
-        "0m3D4grap8VFSzbJMqgNVk"
-      ],
-      "isrc": "INS180809003",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b2731678ac5545f32babac4fe4ad",
-      "provider_url": "https://open.spotify.com/track/0bNRJP5ohcR6CAy6b2u2S9",
-      "release_year": "2008",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/38d70a56-b9ca-4bf9-b274-c8017a9dd0f2-0-15.mp3"
-    },
-    {
-      "id": "4d090058-8749-4a81-9316-3294649bb881",
-      "song_title": "Sajna Hai Mujhe",
-      "movie_album": "Sajna Hai Mujhe",
-      "artists": [
-        "Vaishali Samant"
-      ],
-      "label": "Sajna Hai Mujhe - Sajna Hai Mujhe",
-      "provider": "manual",
-      "provider_track_id": "",
-      "artist_ids": [],
-      "isrc": "",
-      "artwork_url": "",
-      "provider_url": "",
-      "release_year": "",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/4d090058-8749-4a81-9316-3294649bb881-0-15.mp3"
-    },
-    {
-      "id": "b834fe39-cf2f-4cb4-9383-722446506b1f",
-      "song_title": "Shut Up & Bounce",
-      "movie_album": "Dostana (Original Motion Picture Soundtrack)",
-      "artists": [
-        "Vishal-Shekhar",
-        "Sunidhi Chauhan",
-        "Vishal Dadlani"
-      ],
-      "label": "Shut Up & Bounce - Dostana (Original Motion Picture Soundtrack)",
-      "provider": "spotify",
-      "provider_track_id": "7JFIDJAi9RoCn0JYavNLRG",
-      "artist_ids": [
-        "6Mv8GjQa7LKUGCAqa9qqdb",
-        "3eDT9fwXKuHWFvgZaaYC5v",
-        "6CXEwIaXYfVJ84biCxqc9k"
-      ],
-      "isrc": "INS170816337",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273add6b0e45df7005a55e89c8a",
-      "provider_url": "https://open.spotify.com/track/7JFIDJAi9RoCn0JYavNLRG",
-      "release_year": "2008",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/b834fe39-cf2f-4cb4-9383-722446506b1f-0-15.mp3"
-    },
-    {
-      "id": "d5e9b3a3-565c-4f03-b428-e7eee67582ce",
-      "song_title": "Su Chhe",
-      "movie_album": "What's Your Rashee? (Original Motion Picture Soundtrack)",
-      "artists": [
-        "Sohail Sen",
-        "Bela Shende"
-      ],
-      "label": "Su Chhe - What's Your Rashee? (Original Motion Picture Soundtrack)",
-      "provider": "spotify",
-      "provider_track_id": "12pQFK7yb6zXa0n8I6Muei",
-      "artist_ids": [
-        "1bTROl5p3rGTpvKeWnGgrw",
-        "60f431EIEmwOfJJOJhdyQR"
-      ],
-      "isrc": "INS170900358",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27372148a8fba4c3bee9c168932",
-      "provider_url": "https://open.spotify.com/track/12pQFK7yb6zXa0n8I6Muei",
-      "release_year": "2009",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/d5e9b3a3-565c-4f03-b428-e7eee67582ce-0-15.mp3"
-    },
-    {
-      "id": "31ad28ef-5e75-4699-9320-2633010890e6",
-      "song_title": "Tennu Le",
-      "movie_album": "Jai Veeru",
-      "artists": [
-        "omer inayat"
-      ],
-      "label": "Tennu Le - Jai Veeru",
-      "provider": "spotify",
-      "provider_track_id": "0dQiyqHUpnMPmHtk535VAY",
-      "artist_ids": [
-        "4eCyyxnvpCKgZs7RCyjDr8"
-      ],
-      "isrc": "INS180901022",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b27364faa2f475c5548a65607a72",
-      "provider_url": "https://open.spotify.com/track/0dQiyqHUpnMPmHtk535VAY",
-      "release_year": "2009",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/31ad28ef-5e75-4699-9320-2633010890e6-0-15.mp3"
-    },
-    {
-      "id": "4e19712a-cc36-43dc-b603-8d1047a3cb10",
-      "song_title": "Tu Meri Dost Hain",
-      "movie_album": "Yuvvraaj (Original Motion Picture Soundtrack)",
-      "artists": [
-        "Benny Dayal",
-        "Shreya Ghoshal"
-      ],
-      "label": "Tu Meri Dost Hain - Yuvvraaj (Original Motion Picture Soundtrack)",
-      "provider": "spotify",
-      "provider_track_id": "02N5ZxOVugGQmKeIT0VXUx",
-      "artist_ids": [
-        "61if35zz1W11GejEkxTLEQ",
-        "0oOet2f43PA68X5RxKobEy"
-      ],
-      "isrc": "INT101903088",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273208bebf7980448d4db1a4295",
-      "provider_url": "https://open.spotify.com/track/02N5ZxOVugGQmKeIT0VXUx",
-      "release_year": "2008",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/4e19712a-cc36-43dc-b603-8d1047a3cb10-0-15.mp3"
-    },
-    {
-      "id": "a3e9b112-d99e-463a-a146-66089495b7be",
-      "song_title": "Yeh Dil Deewana",
-      "movie_album": "Pardes (Original Motion Picture Soundtrack)",
-      "artists": [
-        "Sonu Nigam",
-        "Hema Sardesai",
-        "Shankar Mahadevan"
-      ],
-      "label": "Yeh Dil Deewana - Pardes (Original Motion Picture Soundtrack)",
-      "provider": "spotify",
-      "provider_track_id": "1dZuiEX0EjvQai3N7BlUmT",
-      "artist_ids": [
-        "1dVygo6tRFXC8CSWURQJq2",
-        "7J1dPh3Yjs0aIhQHbBfNQP",
-        "1SJOL9HJ08YOn92lFcYf8a"
-      ],
-      "isrc": "INT109700003",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273a9df849755dad656e002852e",
-      "provider_url": "https://open.spotify.com/track/1dZuiEX0EjvQai3N7BlUmT",
-      "release_year": "1997",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/a3e9b112-d99e-463a-a146-66089495b7be-0-15.mp3"
-    },
-    {
-      "id": "1c521690-487e-4231-96e4-176d81ad86be",
-      "song_title": "Zaalima",
-      "movie_album": "Raees (Original Motion Picture Soundtrack)",
-      "artists": [
-        "Arijit Singh",
-        "Harshdeep Kaur"
-      ],
-      "label": "Zaalima - Raees (Original Motion Picture Soundtrack)",
-      "provider": "spotify",
-      "provider_track_id": "1J9vyEntJ79CppvgUxJs75",
-      "artist_ids": [
-        "4YRxDV8wJFPHPTeXepOstw",
-        "3xU8YsNNkmWSPewlB18NUz"
-      ],
-      "isrc": "INZ031401982",
-      "artwork_url": "https://i.scdn.co/image/ab67616d0000b273fced3ea9af59ad98c142279e",
-      "provider_url": "https://open.spotify.com/track/1J9vyEntJ79CppvgUxJs75",
-      "release_year": "2017",
-      "difficulty": "medium",
-      "snippet_start_time": 0,
-      "snippet_url": "/snippets/1c521690-487e-4231-96e4-176d81ad86be-0-15.mp3"
+      "snippet_url": "/snippets/939c2d71-e0e0-4206-92a3-afa5d5ebd090-0-15.mp3"
     }
   ]
 }
